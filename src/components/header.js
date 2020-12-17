@@ -1,42 +1,98 @@
-import { Link } from "gatsby"
-import PropTypes from "prop-types"
-import React from "react"
+import React from "react";
+import { useSpring, animated } from "react-spring";
+import {
+  teal,
+  blue,
+  lightBlue,
+  purple,
+  indigo,
+  deepPurple,
+  cyan,
+  pink
+} from "@material-ui/core/colors";
+import { makeStyles } from '@material-ui/core/styles';
 
-const Header = ({ siteTitle }) => (
-  <header
-    style={{
-      background: `rebeccapurple`,
-      marginBottom: `1.45rem`,
-    }}
-  >
-    <div
-      style={{
-        margin: `0 auto`,
-        maxWidth: 960,
-        padding: `1.45rem 1.0875rem`,
-      }}
-    >
-      <h1 style={{ margin: 0 }}>
-        <Link
-          to="/"
-          style={{
-            color: `white`,
-            textDecoration: `none`,
-          }}
-        >
-          {siteTitle}
-        </Link>
-      </h1>
-    </div>
-  </header>
-)
+const calc = (x, y) => [
+  -(y - window.innerHeight / 2) / 40,
+  (x - window.innerWidth / 2) / 40
+];
+const trans = (x, y) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg)`;
 
-Header.propTypes = {
-  siteTitle: PropTypes.string,
-}
+const useStyles = makeStyles(theme => ({
+  root: {
+    display: "flex",
+    height: "100vh",
+    width: "100%",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  headerText: {
+    animation: `$colors 5s ${theme.transitions.easing.easeInOut} 0s infinite alternate-reverse none`,
+    textAlign: "center",
+    cursor: "default",
+    "& h1": {
+      fontSize: "12vw",
+      lineHeight: 1
+    },
+    "& p": {
+      fontSize: "4vw",
+      letterSpacing: "1vw",
+    }
+  },
+  divider: {
+    display: "block",
+    width: "11vw",
+    height: 3,
+    borderRadius: 4,
+    background: theme.palette.common.white,
+    margin: `${theme.spacing(3)} auto`,
+    animation: `$colors 5s ${theme.transitions.easing.easeInOut} 0s infinite alternate-reverse none`,
+  },
+  "@keyframes colors": {
+    "0%": {
+        backgroundPositionX: "0%"
+    },
+    "100%": {
+        backgroundPositionX: "100%"
+    }
+  }
+}))
 
-Header.defaultProps = {
-  siteTitle: ``,
-}
+const Header = () => {
+  const classes = useStyles();
+  const [props, set] = useSpring(() => ({
+    xy: [0, 0],
+    config: { mass: 5, tension: 350, friction: 40 },
+  }));
+  const updateMousePosition = e => {
+    set({ xy: calc(e.clientX, e.clientY) });
+  };
+  React.useEffect(() => {
+    const listener = window.addEventListener("mousemove", updateMousePosition);
+    return () => window.removeEventListener("mousemove", updateMousePosition);
+  }, []);
 
-export default Header
+  return (
+    <section className={classes.root}>
+      <animated.div
+        className={classes.headerText}
+        style={{
+          background: `linear-gradient(45deg, ${teal[200]}, ${cyan[200]}, ${lightBlue[200]}, ${blue[200]}, ${indigo[200]}, ${deepPurple[200]}, ${purple[200]}, ${pink[200]})`,
+          backgroundSize: "300%",
+          WebkitTextFillColor: "transparent",
+          boxDecorationBreak: "clone",
+          WebkitBackgroundClip: "text",
+          textShadow: "none",
+          backgroundSize: "300%",
+          transform: props.xy.interpolate(trans),
+        }}
+      >
+        <h1>Brian Yates</h1>
+        <p>SOFTWARE DEVELOPER</p>
+      </animated.div>
+    </section>
+  );
+};
+
+export default Header;
