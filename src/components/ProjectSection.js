@@ -18,7 +18,8 @@ const useStyles = makeStyles(theme => ({
   },
   infoContainer: {
     position: "sticky",
-    paddingTop: 64,
+    paddingTop: NAV_HEIGHT + theme.spacing(1),
+    paddingBottom: theme.spacing(6),
     zIndex: 50,
     left: 0,
     top: 0,
@@ -28,7 +29,8 @@ const useStyles = makeStyles(theme => ({
     },
   },
   projectsContainer: {
-    paddingTop: 64,
+    paddingTop: NAV_HEIGHT + theme.spacing(1),
+    paddingBottom: theme.spacing(6)
   },
 }));
 
@@ -96,7 +98,6 @@ const ProjectSection = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  console.log(activeIndex);
   const InfoContainers = projects.map(({ images, ...other }, idx) => {
     return <ProjectInfoContainer {...other} key={`container-${idx}`} active={idx === activeIndex} />;
   });
