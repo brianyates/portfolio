@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { CONTACT, NAV_HEIGHT, PROJECTS, ABOUT } from "../constants";
-import { pink, blue, teal } from "@material-ui/core/colors";
 
 if (typeof window !== "undefined") {
   require("smooth-scroll")('a[href*="#"]');
@@ -57,10 +56,10 @@ const useStyles = makeStyles(theme => ({
 
 const navItems = [PROJECTS, ABOUT, CONTACT];
 
-const Navbar = ({ navFixed, activeIndex }) => {
+const Navbar = ({ navFixed, activeIndex, backgroundColor }) => {
   const classes = useStyles();
   return (
-    <nav className={`${classes.root}${navFixed ? " fixed" : ""}`}>
+    <nav className={`${classes.root}${navFixed ? " fixed" : ""}`} style={{ backgroundColor }}>
       <ul>
         {navItems.map((item, index) => {
           return (

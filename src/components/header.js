@@ -68,18 +68,14 @@ const Header = () => {
   const updateMousePosition = e => {
     set({ xy: calc(e.clientX, e.clientY) });
   };
-  React.useEffect(() => {
-    const listener = window.addEventListener("mousemove", updateMousePosition);
-    return () => window.removeEventListener("mousemove", updateMousePosition);
-  }, []);
 
   return (
-    <section className={classes.root}>
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
+    <section className={classes.root} onMouseMove={updateMousePosition} role="banner">
       <animated.div
         className={classes.headerText}
         style={{
           background: `linear-gradient(45deg, ${teal[200]}, ${cyan[200]}, ${lightBlue[200]}, ${blue[200]}, ${indigo[200]}, ${deepPurple[200]}, ${purple[200]}, ${pink[200]})`,
-          backgroundSize: "300%",
           WebkitTextFillColor: "transparent",
           boxDecorationBreak: "clone",
           WebkitBackgroundClip: "text",

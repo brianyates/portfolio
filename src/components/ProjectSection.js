@@ -1,10 +1,11 @@
 import React from "react";
-import Typography from "@material-ui/core/Typography";
+import { throttle } from "lodash";
 import Grid from "@material-ui/core/Grid";
+import { useStaticQuery, graphql } from "gatsby";
+import GatsbyImage from "gatsby-image";
 import { makeStyles } from "@material-ui/core/styles";
-import ArrowButton from "./ArrowButton";
 import { NAV_HEIGHT } from "../constants";
-import ProjectItem from "./ProjectItem";
+import ProjectInfoContainer from "./ProjectInfoContainer";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -15,53 +16,109 @@ const useStyles = makeStyles(theme => ({
     maxWidth: theme.breakpoints.values.lg,
     margin: "auto",
   },
-  infoSection: {
-    position: "absolute",
+  infoContainer: {
+    position: "sticky",
+    paddingTop: 64,
     zIndex: 50,
     left: 0,
+    top: 0,
     width: "100%",
-    "&.fixed": {
-      position: "fixed",
-      top: NAV_HEIGHT,
-    },
-    "& .content-container": {
-      maxWidth: theme.breakpoints.values.lg,
-      margin: "auto",
-      "& .content": {
-        width: "33.333333%",
-      },
-    },
     "& .message": {
       margin: `${theme.spacing(3)}px 0`,
     },
   },
+  projectsContainer: {
+    paddingTop: 64,
+  },
 }));
-const ProjectSection = ({ active }) => {
+
+const lorem =
+  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
+
+const PROJECT_COUNT = 2;
+const ProjectSection = () => {
+  const [activeIndex, setActiveIndex] = React.useState(0);
   const classes = useStyles();
+  const data = useStaticQuery(graphql`
+    query {
+      image1: file(relativePath: { eq: "placeholder.jpg" }) {
+        childImageSharp {
+          fluid(maxWidth: 1000) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `);
+  const projects = [
+    {
+      name: "TILL",
+      description: lorem,
+      href: "https://usetill.com",
+      images: (
+        <>
+          <div>
+            <GatsbyImage fluid={data.image1.childImageSharp.fluid} />
+          </div>
+          <div>
+            <GatsbyImage fluid={data.image1.childImageSharp.fluid} />
+          </div>
+        </>
+      ),
+    },
+    {
+      name: "WAVEFOUNDRY",
+      description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia",
+      href: "https://wavefoundry.io",
+      images: (
+        <>
+          <div>
+            <GatsbyImage fluid={data.image1.childImageSharp.fluid} />
+          </div>
+          <div>
+            <GatsbyImage fluid={data.image1.childImageSharp.fluid} />
+          </div>
+        </>
+      ),
+    },
+  ];
+  const refs = React.useRef([]);
+  React.useEffect(() => {
+    const handleScroll = throttle(() => {
+      for (let i = 0; i < PROJECT_COUNT; i++) {
+        const { top, bottom } = refs.current[i].getBoundingClientRect();
+        if (top <= NAV_HEIGHT && bottom >= NAV_HEIGHT) {
+          setActiveIndex(i);
+          break;
+        }
+      }
+    }, 250);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  console.log(activeIndex);
+  const InfoContainers = projects.map(({ images, ...other }, idx) => {
+    return <ProjectInfoContainer {...other} key={`container-${idx}`} active={idx === activeIndex} />;
+  });
   return (
     <div className={classes.root}>
-      <div className={`${classes.infoSection}${active ? " fixed" : ""}`}>
-        <div className="content-container">
-          <div className="content">
-            <Typography variant="h3">
-              <strong>TILL</strong>
-            </Typography>
-            <Typography className="message">
-              I got your message...glad you saw my post on Reddit! I'd love to
-              chat whenever you're free; let me know what time works best for
-              you. My schedule is pretty open the rest of this week.
-            </Typography>
-            <div>
-              <ArrowButton label="VIEW PROJECT" href="/" />
-            </div>
-          </div>
-        </div>
-      </div>
       <div className={classes.contentContainer}>
         <Grid container spacing={2}>
-          <Grid item xs={4}></Grid>
+          <Grid item xs={4}>
+            <div className={`${classes.infoContainer}`}>
+              {InfoContainers[activeIndex]}
+            </div>
+          </Grid>
           <Grid item xs={8}>
-            <ProjectItem />
+            <div className={classes.projectsContainer}>
+              {projects.map(({ images }, idx) => {
+                return (
+                  <div key={`images-${idx}`} ref={el => refs.current.push(el)}>
+                    {images}
+                  </div>
+                );
+              })}
+            </div>
           </Grid>
         </Grid>
       </div>

@@ -9,7 +9,6 @@ import "../stylesheets/index.css";
 import Navbar from "./Navbar";
 import Header from "./Header";
 import { NAV_HEIGHT, PROJECTS, ABOUT, CONTACT } from "../constants";
-import { blue, blueGrey, cyan, deepPurple, indigo, teal } from "@material-ui/core/colors";
 import ProjectSection from "./ProjectSection";
 
 const HOST_URL = "https://brianyates.dev";
@@ -36,21 +35,15 @@ const theme = createMuiTheme({
   },
 });
 
+// TODO - use react-spring to change background colors on scroll
 const useStyles = makeStyles(theme => ({
   main: {
     transition: `background-color ${theme.transitions.duration.standard}ms`,
     backgroundColor: theme.palette.common.black,
-    // "&.active-0": {
-    //   backgroundColor: blueGrey[900]
-    // },
-    // "&.active-1": {
-    //   backgroundColor: indigo[900]
-    // },
-    // "&.active-2": {
-    //   backgroundColor: cyan[900]
-    // }
   }
 }))
+
+const SECTION_COUNT = 3;
 
 const Layout = ({
   pageTitle,
@@ -65,12 +58,12 @@ const Layout = ({
   const [activeIndex, setActiveIndex] = React.useState(null);
   React.useEffect(() => {
     const handleScroll = () => {
-      const { y: projectY } = refs.current[0].getBoundingClientRect();
-      if (projectY <= NAV_HEIGHT) {
+      const top = window.scrollY;
+      if (top + NAV_HEIGHT > window.innerHeight) {
         setNavFixed(true);
-        for (let i = 0; i < 3; i++) {
+        for (let i = 0; i < SECTION_COUNT; i++) {
           const { top, bottom } = refs.current[i].getBoundingClientRect();
-          if ( top <= NAV_HEIGHT && bottom >=NAV_HEIGHT) {
+          if (top <= NAV_HEIGHT && bottom >= NAV_HEIGHT) {
             setActiveIndex(i);
             break;
           }
@@ -113,7 +106,7 @@ const Layout = ({
         <main className={`${classes.main} active-${activeIndex}`}>
           <Header />
           <section ref={el => refs.current.push(el)} id={PROJECTS}>
-            <ProjectSection active={activeIndex===0}/>
+            <ProjectSection active={activeIndex===0} />
           </section>
           <section ref={el => refs.current.push(el)} style={{height: 1000}} id={ABOUT}></section>
           <section ref={el => refs.current.push(el)} style={{height: 1000}} id={CONTACT}></section>

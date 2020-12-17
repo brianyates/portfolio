@@ -6,7 +6,7 @@ const transitionDuration = 100;
 const useStyles = makeStyles(theme => ({
   root: {
     display: "inline-flex",
-    border: `1px solid ${theme.palette.common.white}`,
+    border: `1px solid ${theme.palette.grey[300]}`,
     padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     borderRadius: theme.shape.borderRadius,
     lineHeight: 0,
