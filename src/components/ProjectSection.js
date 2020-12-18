@@ -14,6 +14,8 @@ import FirebaseIcon from "./icons/FirebaseIcon";
 import RubyIcon from "./icons/RubyIcon";
 import JQueryIcon from "./icons/JQueryIcon";
 import PostgresIcon from "./icons/PostgresIcon";
+import { Typography } from "@material-ui/core";
+import SectionHeader from "./SectionHeader";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -26,25 +28,45 @@ const useStyles = makeStyles(theme => ({
   },
   infoContainer: {
     position: "sticky",
-    paddingTop: NAV_HEIGHT + theme.spacing(1),
-    paddingBottom: theme.spacing(6),
+    paddingTop: theme.spacing(3),
     zIndex: 50,
     left: 0,
     top: 0,
     width: "100%",
+    height: `100vh`,
     "& .message": {
-      margin: `${theme.spacing(3)}px 0`,
+      margin: `${theme.spacing(2)}px 0 ${theme.spacing(3)}px`,
+    },
+    "& .controls-container": {
+      margin: `${theme.spacing(2)}px 0 ${theme.spacing(3)}px -${theme.spacing(1)}px`,
+      width: "100%",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "flex-start",
+      "& .control-btn": {
+        width: 8,
+        height: 8,
+        display: "inline-block",
+        borderRadius: 9999,
+        margin: `0 ${theme.spacing(1)}px`,
+        backgroundColor: "rgba(0, 0, 0, 0)",
+        border: `1px solid ${theme.palette.grey[500]}`,
+        cursor: "pointer",
+        transition: `border-color ${theme.transitions.duration.shorter}ms, background-color ${theme.transitions.duration.shorter}ms`,
+        "&.active": {
+          borderColor: theme.palette.grey[200],
+          backgroundColor: theme.palette.grey[200],
+        },
+      },
     },
   },
   projectsContainer: {
-    paddingTop: NAV_HEIGHT + theme.spacing(1),
-    paddingBottom: theme.spacing(6),
+    paddingTop: theme.spacing(3),
+    paddingBottom: theme.spacing(8),
   },
 }));
 
-const lorem =
-  "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
-
+const PROJECT_COUNT = 4;
 const ProjectSection = () => {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const classes = useStyles();
@@ -62,7 +84,9 @@ const ProjectSection = () => {
   const projects = [
     {
       name: "TILL",
-      description: lorem,
+      id: "till",
+      description:
+        "Till is a food delivery service which allows customers to order locally-sourced produce, meats and pantry items from local farms, delivered right to their doorstep. Customers can search for food from over 20 artisan farmers and learn about the origins of each farm. Till currently has a userbase of over 650 customers which grows every week.",
       href: "https://usetill.com",
       stack: [
         {
@@ -71,12 +95,12 @@ const ProjectSection = () => {
         },
         {
           label: "React.js",
-          Icon: ReactIcon
+          Icon: ReactIcon,
         },
         {
           label: "Google Cloud",
-          Icon: GoogleCloudIcon
-        }
+          Icon: GoogleCloudIcon,
+        },
       ],
       images: (
         <>
@@ -91,13 +115,14 @@ const ProjectSection = () => {
     },
     {
       name: "DZIGN STUDIO",
+      id: "dzign-studio",
       description:
-        "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia",
+        "Dzign Studio is an online boutique specializing in selling custom poured acrylic, industrial frames, and woodwork. Built with Gatsby and Firebase, this web app offers a vast array of product customization features to help cover the broad spectrum of available product options.",
       href: "https://shopdzignstudio.com",
       stack: [
         {
           label: "React.js",
-          Icon: ReactIcon
+          Icon: ReactIcon,
         },
         {
           label: "Gatsby.js",
@@ -105,8 +130,8 @@ const ProjectSection = () => {
         },
         {
           label: "Firebase",
-          Icon: FirebaseIcon
-        }
+          Icon: FirebaseIcon,
+        },
       ],
       images: (
         <>
@@ -121,13 +146,14 @@ const ProjectSection = () => {
     },
     {
       name: "QUIPQUOTES",
+      id: "quipquotes",
       description:
-        "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia",
+        "QuipQuotes is a software service which provides heavy construction equipment buyers the ability to easily request quotes from equipment dealers in their area. Equipment dealers can also track their requests and quickly provide quotes and additional feedback.",
       href: "https://quipquotes.com",
       stack: [
         {
           label: "Ruby on Rails",
-          Icon: RubyIcon
+          Icon: RubyIcon,
         },
         {
           label: "jQuery",
@@ -135,8 +161,8 @@ const ProjectSection = () => {
         },
         {
           label: "PostgreSQL",
-          Icon: PostgresIcon
-        }
+          Icon: PostgresIcon,
+        },
       ],
       images: (
         <>
@@ -151,13 +177,14 @@ const ProjectSection = () => {
     },
     {
       name: "WAVEFOUNDRY",
+      id: "wavefoundry",
       description:
-        "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia",
+        "Wavefoundry is a tech consulting business aimed at building websites and web applications for small businesses using the latest and greatest web development tools and frameworks. It's maintained and operated by yours truly.",
       href: "https://wavefoundry.io",
       stack: [
         {
           label: "React.js",
-          Icon: ReactIcon
+          Icon: ReactIcon,
         },
         {
           label: "Gatsby.js",
@@ -165,8 +192,8 @@ const ProjectSection = () => {
         },
         {
           label: "Firebase",
-          Icon: FirebaseIcon
-        }
+          Icon: FirebaseIcon,
+        },
       ],
       images: (
         <>
@@ -183,7 +210,7 @@ const ProjectSection = () => {
   const refs = React.useRef([]);
   React.useEffect(() => {
     const handleScroll = throttle(() => {
-      for (let i = 0; i < projects.length; i++) {
+      for (let i = 0; i < PROJECT_COUNT; i++) {
         const { top, bottom } = refs.current[i].getBoundingClientRect();
         if (top <= NAV_HEIGHT && bottom >= NAV_HEIGHT) {
           setActiveIndex(i);
@@ -206,17 +233,37 @@ const ProjectSection = () => {
   return (
     <div className={classes.root}>
       <div className={classes.contentContainer}>
-        <Grid container spacing={2}>
+        <Grid container spacing={4}>
           <Grid item xs={4}>
             <div className={`${classes.infoContainer}`}>
+              <SectionHeader label={"projects"} />
+              <div className="controls-container">
+                {projects.map(({ id }, i) => {
+                  return (
+                    <div key={`button-${i}`}>
+                      <a
+                        href={`/#${id}`}
+                        aria-label="Project navigator"
+                        className={`control-btn${
+                          i === activeIndex ? " active" : ""
+                        }`}
+                      ></a>
+                    </div>
+                  );
+                })}
+              </div>
               {InfoContainers[activeIndex]}
             </div>
           </Grid>
           <Grid item xs={8}>
             <div className={classes.projectsContainer}>
-              {projects.map(({ images }, idx) => {
+              {projects.map(({ images, id }, idx) => {
                 return (
-                  <div key={`images-${idx}`} ref={el => refs.current.push(el)}>
+                  <div
+                    key={`images-${idx}`}
+                    ref={el => refs.current.push(el)}
+                    id={id}
+                  >
                     {images}
                   </div>
                 );

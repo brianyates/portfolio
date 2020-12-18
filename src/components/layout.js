@@ -1,5 +1,3 @@
-/// <reference path="../declarations.d.ts" />
-
 import React from "react";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,6 +9,14 @@ import Header from "./Header";
 import { NAV_HEIGHT, PROJECTS, ABOUT, CONTACT } from "../constants";
 import ProjectSection from "./ProjectSection";
 import AboutSection from "./AboutSection";
+import ContactSection from "./ContactSection";
+
+if (typeof window !== "undefined") {
+  require("smooth-scroll")('a[href*="#"]', {
+    speed: 700,
+    speedAsDuration: true,
+  })
+}
 
 const HOST_URL = "https://brianyates.dev";
 const defaultOgImage = `${HOST_URL}/og-image.png`;
@@ -44,7 +50,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.common.white,
   },
   section: {
-    padding: `${theme.spacing(6)}px ${theme.spacing(3)}px`,
+    padding: `${theme.spacing(8)}px ${theme.spacing(3)}px`,
   },
 }));
 
@@ -59,24 +65,17 @@ const Layout = ({
 }) => {
   const classes = useStyles();
   const refs = React.useRef([]);
-  const [navFixed, setNavFixed] = React.useState(false);
   const [activeIndex, setActiveIndex] = React.useState(null);
   React.useEffect(() => {
     const handleScroll = () => {
-      const top = window.scrollY;
-      if (top + NAV_HEIGHT >= window.innerHeight) {
-        setNavFixed(true);
-        for (let i = 0; i < SECTION_COUNT; i++) {
-          const { top, bottom } = refs.current[i].getBoundingClientRect();
-          if (top <= NAV_HEIGHT && bottom >= NAV_HEIGHT) {
-            setActiveIndex(i);
-            break;
-          }
+      for (let i = 0; i < SECTION_COUNT; i++) {
+        const { top, bottom } = refs.current[i].getBoundingClientRect();
+        if (top <= NAV_HEIGHT && bottom >= NAV_HEIGHT) {
+          setActiveIndex(i);
+          return;
         }
-      } else {
-        setNavFixed(false);
-        setActiveIndex(null);
       }
+      setActiveIndex(null);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -107,27 +106,25 @@ const Layout = ({
       </noscript>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        <Navbar navFixed={navFixed} activeIndex={activeIndex} />
         <main className={`${classes.main} active-${activeIndex}`}>
           <Header />
-          <section
-            ref={el => refs.current.push(el)}
-            id={PROJECTS}
-          >
-            <ProjectSection active={activeIndex === 0} />
+          <section ref={el => refs.current.push(el)} id={PROJECTS}>
+            <ProjectSection />
           </section>
           <section
             ref={el => refs.current.push(el)}
             id={ABOUT}
             className={classes.section}
           >
-            <AboutSection />
+            <AboutSection isVisible={activeIndex === 1} />
           </section>
           <section
             ref={el => refs.current.push(el)}
             id={CONTACT}
             className={classes.section}
-          ></section>
+          >
+            <ContactSection />
+          </section>
         </main>
       </ThemeProvider>
     </>

@@ -1,16 +1,13 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { CONTACT, NAV_HEIGHT, PROJECTS, ABOUT } from "../constants";
-
-if (typeof window !== "undefined") {
-  require("smooth-scroll")('a[href*="#"]');
-}
+import { teal, blue, purple } from "@material-ui/core/colors";
 
 const useStyles = makeStyles(theme => ({
   root: {
     position: "absolute",
     left: 0,
-    bottom: 0,
+    top: 0,
     width: "100%",
     zIndex: 100,
     display: "flex",
@@ -31,23 +28,32 @@ const useStyles = makeStyles(theme => ({
       margin: "0 auto",
       "& > li": {
         flexGrow: 1,
-        textAlign: 'center'
+        textAlign: "center",
       },
       "& > li:first-child": {
-        textAlign: "left"
+        textAlign: "left",
       },
       "& > li:last-child": {
-        textAlign: "right"
+        textAlign: "right",
       },
       "& > li > a": {
-        color: theme.palette.common.white,
-        opacity: 0.6,
+        color: theme.palette.grey[500],
         fontSize: "1rem",
         letterSpacing: 3,
         textDecoration: "none",
-        transition: `opacity ${theme.transitions.duration.shorter}ms`,
-        "&.active, &:hover, &:focus": {
-          opacity: 1,
+        transition: `color ${theme.transitions.duration.shorter}ms`,
+        "&:hover, &:focus": {
+          color: blue[100],
+        },
+      },
+      "& > li:first-child > a": {
+        "&:hover, &:focus": {
+          color: teal[100],
+        },
+      },
+      "& > li:last-child > a": {
+        "&:hover, &:focus": {
+          color: purple[100],
         },
       },
     },
@@ -56,20 +62,15 @@ const useStyles = makeStyles(theme => ({
 
 const navItems = [PROJECTS, ABOUT, CONTACT];
 
-const Navbar = ({ navFixed, activeIndex, backgroundColor }) => {
+const Navbar = () => {
   const classes = useStyles();
   return (
-    <nav className={`${classes.root}${navFixed ? " fixed" : ""}`} style={{ backgroundColor }}>
+    <nav className={classes.root}>
       <ul>
         {navItems.map((item, index) => {
           return (
             <li key={item}>
-              <a
-                href={`#${item}`}
-                className={activeIndex === index ? "active" : ""}
-              >
-                {item.toUpperCase()}
-              </a>
+              <a href={`#${item}`}>{item.toUpperCase()}</a>
             </li>
           );
         })}

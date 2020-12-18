@@ -16,6 +16,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     display: "block",
     overflow: "auto",
+    borderRadius: theme.shape.borderRadius
   },
   pre: {
     display: "flex",
@@ -396,7 +397,7 @@ const lines = [
     indent: 2,
     content: [
       {
-        text: "skills",
+        text: "techSkills",
         color: codeColors.variable,
       },
       {
@@ -440,7 +441,7 @@ const lines = [
         color: codeColors.operator,
       },
       {
-        text: `"Life"`,
+        text: `"NoSQL"`,
         color: codeColors.string,
       },
       {
@@ -470,7 +471,7 @@ const lines = [
         color: codeColors.variable,
       },
       {
-        text: `"Penn State"`,
+        text: `"Penn State University"`,
         color: codeColors.string,
       },
       {
@@ -517,8 +518,10 @@ const wait = (callback, duration) =>
     setTimeout(() => resolve(callback()), duration);
   });
 
-const AboutCodeEditor = () => {
+const AboutCodeEditor = ({ isVisible }) => {
   const [activeLine, setActiveLine] = React.useState(0);
+  const [started, setStarted] = React.useState(false);
+  const [finished, setFinished] = React.useState(false);
   const refs = React.useRef([]);
   const classes = useStyles();
   const writeCode = async () => {
@@ -536,10 +539,14 @@ const AboutCodeEditor = () => {
         refTracker++;
       }
     }
+    setFinished(true);
   };
   React.useEffect(() => {
-    writeCode();
-  }, []);
+    if (isVisible && !finished && !started) {
+      setStarted(true);
+      writeCode();
+    }
+  }, [isVisible]);
   return (
     <code className={classes.root}>
       <pre className={classes.pre}>
@@ -571,7 +578,7 @@ const AboutCodeEditor = () => {
                     />
                   );
                 })}
-                {idx1 === activeLine && <span className={`${classes.cursor}${idx1 === lines.length - 1 ? " finished" : ""}`} />}
+                {idx1 === activeLine && <span className={`${classes.cursor}${!isVisible || idx1 === lines.length - 1 ? " finished" : ""}`} />}
               </div>
             );
           })}

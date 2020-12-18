@@ -11,6 +11,7 @@ import {
   pink
 } from "@material-ui/core/colors";
 import { makeStyles } from '@material-ui/core/styles';
+import Navbar from "./Navbar";
 
 const calc = (x, y) => [
   -(y - window.innerHeight / 2) / 40,
@@ -68,10 +69,14 @@ const Header = () => {
   const updateMousePosition = e => {
     set({ xy: calc(e.clientX, e.clientY) });
   };
+  const handleMouseLeave = () => {
+    set({ xy: [0, 0]})
+  }
 
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-    <section className={classes.root} onMouseMove={updateMousePosition} role="banner">
+    <header className={classes.root} onMouseMove={updateMousePosition} role="banner" onMouseLeave={handleMouseLeave}>
+      <Navbar />
       <animated.div
         className={classes.headerText}
         style={{
@@ -87,7 +92,7 @@ const Header = () => {
         <h1>Brian Yates</h1>
         <p>SOFTWARE DEVELOPER</p>
       </animated.div>
-    </section>
+    </header>
   );
 };
 
