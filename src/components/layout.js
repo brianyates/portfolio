@@ -64,7 +64,7 @@ const Layout = ({
   React.useEffect(() => {
     const handleScroll = () => {
       const top = window.scrollY;
-      if (top + NAV_HEIGHT > window.innerHeight) {
+      if (top + NAV_HEIGHT >= window.innerHeight) {
         setNavFixed(true);
         for (let i = 0; i < SECTION_COUNT; i++) {
           const { top, bottom } = refs.current[i].getBoundingClientRect();

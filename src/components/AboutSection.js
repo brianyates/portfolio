@@ -12,6 +12,9 @@ const useStyles = makeStyles(theme => ({
     margin: "auto",
     padding: `0 ${theme.spacing(3)}px`,
   },
+  imageContainer: {
+    marginBottom: theme.spacing(3)
+  }
 }));
 
 const lorem =
@@ -34,7 +37,7 @@ const AboutSection = () => {
     <div className={classes.root}>
       <Grid container spacing={4}>
         <Grid item xs={12} md={5}>
-          <div>
+          <div className={classes.imageContainer}>
             <GatsbyImage fluid={data.image.childImageSharp.fluid} />
           </div>
           <div>
