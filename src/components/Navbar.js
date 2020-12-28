@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     height: NAV_HEIGHT,
     alignItems: "center",
+    fontFamily: theme.typography.fontFamily,
     "&.fixed": {
       position: "fixed",
       top: 0,
@@ -45,6 +46,9 @@ const useStyles = makeStyles(theme => ({
         "&:hover, &:focus": {
           color: theme.palette.common.white,
         },
+        [theme.breakpoints.down('xs')]: {
+          fontSize: '.8rem'
+        }
       },
     },
   },

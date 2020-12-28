@@ -1,4 +1,10 @@
-* {
+body, html {
+    background: #000000;
+}
+.grecaptcha-badge { 
+    visibility: hidden;
+}
+h1, p, a, ul, li {
     margin: 0;
     padding: 0;
 }

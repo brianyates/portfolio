@@ -47,6 +47,7 @@ const useStyles = makeStyles(theme => ({
   contactLink: {
     display: 'inline-flex',
     alignItems: 'center',
+    fontFamily: theme.typography.fontFamily,
     color: theme.palette.common.white,
     transition: `color ${theme.transitions.duration.shorter}ms`,
     textDecoration: 'none',

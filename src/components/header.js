@@ -27,6 +27,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
+    fontFamily: theme.typography.fontFamily
   },
   headerText: {
     animation: `$colors 5s ${theme.transitions.easing.easeInOut} 0s infinite alternate-reverse none`,
@@ -38,7 +39,7 @@ const useStyles = makeStyles(theme => ({
     },
     "& p": {
       fontSize: "4vw",
-      letterSpacing: "0.85vw",
+      letterSpacing: ".95vw",
     }
   },
   divider: {

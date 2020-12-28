@@ -4,6 +4,8 @@ import Grid from "@material-ui/core/Grid";
 import { useStaticQuery, graphql } from "gatsby";
 import GatsbyImage from "gatsby-image";
 import { makeStyles } from "@material-ui/core/styles";
+import Typography from "@material-ui/core/Typography";
+import Hidden from "@material-ui/core/Hidden";
 import { NAV_HEIGHT } from "../constants";
 import ProjectInfoContainer from "./ProjectInfoContainer";
 import NodeIcon from "./icons/NodeIcon";
@@ -15,6 +17,8 @@ import RubyIcon from "./icons/RubyIcon";
 import JQueryIcon from "./icons/JQueryIcon";
 import PostgresIcon from "./icons/PostgresIcon";
 import SectionHeader from "./SectionHeader";
+import TechStackContainer from "./TechStackContainer";
+import ArrowButton from "./ArrowButton";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -90,6 +94,25 @@ const useStyles = makeStyles(theme => ({
   projectsContainer: {
     paddingTop: theme.spacing(3),
     paddingBottom: theme.spacing(8),
+  },
+  mobileContainer: {
+    "& .label-container": {
+      paddingTop: theme.spacing(10)
+    },
+    "& .header-container": {
+      marginTop: theme.spacing(3),
+      marginBottom: theme.spacing(2),
+    },
+    "& .image-container": {
+      borderRadius: theme.shape.borderRadius,
+      overflow: "hidden",
+    },
+    "& .message-container": {
+      margin: `${theme.spacing(2)}px 0`,
+    },
+    "& .arrow-btn-container": {
+      paddingBottom: theme.spacing(2),
+    },
   },
 }));
 
@@ -192,7 +215,8 @@ const ProjectSection = () => {
       }
     }
   `);
-  const mapImages = (bigImage, mobileImage, otherImage) => {
+  const mapImages = imageArray => {
+    const [bigImage, mobileImage, otherImage] = imageArray;
     return (
       <>
         <div key="image-1" className={classes.imageContainer}>
@@ -207,9 +231,7 @@ const ProjectSection = () => {
             </div>
             <div className="other-image-wrapper">
               <div className="other-image">
-                <GatsbyImage
-                  fluid={otherImage.childImageSharp.fluid}
-                />
+                <GatsbyImage fluid={otherImage.childImageSharp.fluid} />
               </div>
             </div>
           </div>
@@ -238,7 +260,7 @@ const ProjectSection = () => {
           Icon: GoogleCloudIcon,
         },
       ],
-      images: mapImages(data.till1, data.tillMobile, data.till2),
+      images: [data.till1, data.tillMobile, data.till2],
     },
     {
       name: "DZIGN STUDIO",
@@ -260,7 +282,7 @@ const ProjectSection = () => {
           Icon: FirebaseIcon,
         },
       ],
-      images: mapImages(data.dzignStudio1, data.dzignStudioMobile, data.dzignStudio2),
+      images: [data.dzignStudio1, data.dzignStudioMobile, data.dzignStudio2],
     },
     {
       name: "QUIPQUOTES",
@@ -282,7 +304,7 @@ const ProjectSection = () => {
           Icon: PostgresIcon,
         },
       ],
-      images: mapImages(data.quipquotes1, data.quipquotesMobile, data.quipquotes2),
+      images: [data.quipquotes1, data.quipquotesMobile, data.quipquotes2],
     },
     {
       name: "WAVEFOUNDRY",
@@ -304,7 +326,7 @@ const ProjectSection = () => {
           Icon: FirebaseIcon,
         },
       ],
-      images: mapImages(data.wavefoundry1, data.wavefoundryMobile, data.wavefoundry2),
+      images: [data.wavefoundry1, data.wavefoundryMobile, data.wavefoundry2],
     },
   ];
   const refs = React.useRef([]);
@@ -333,44 +355,82 @@ const ProjectSection = () => {
   return (
     <div className={classes.root}>
       <div className={classes.contentContainer}>
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={5}>
-            <div className={`${classes.infoContainer}`}>
-              <SectionHeader label={"projects"} />
-              <div className="controls-container">
-                {projects.map(({ id }, i) => {
+        <Hidden smDown>
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={5}>
+              <div className={classes.infoContainer}>
+                <SectionHeader label="projects" />
+                <div className="controls-container">
+                  {projects.map(({ id }, i) => {
+                    return (
+                      <div key={`button-${i}`}>
+                        <a
+                          href={`/#${id}`}
+                          aria-label={`Project navigation button ${i + 1}`}
+                          className={`control-btn${
+                            i === activeIndex ? " active" : ""
+                          }`}
+                        >
+                          <span />
+                        </a>
+                      </div>
+                    );
+                  })}
+                </div>
+                {InfoContainers[activeIndex]}
+              </div>
+            </Grid>
+            <Grid item xs={12} md={7}>
+              <div className={classes.projectsContainer}>
+                {projects.map(({ images, id }, idx) => {
                   return (
-                    <div key={`button-${i}`}>
-                      <a
-                        href={`/#${id}`}
-                        aria-label={`Project navigation button ${i+1}`}
-                        className={`control-btn${
-                          i === activeIndex ? " active" : ""
-                        }`}
-                      ><span /></a>
+                    <div
+                      key={`images-${idx}`}
+                      ref={el => refs.current.push(el)}
+                      id={id}
+                    >
+                      {mapImages(images)}
                     </div>
                   );
                 })}
               </div>
-              {InfoContainers[activeIndex]}
-            </div>
+            </Grid>
           </Grid>
-          <Grid item xs={12} md={7}>
-            <div className={classes.projectsContainer}>
-              {projects.map(({ images, id }, idx) => {
-                return (
-                  <div
-                    key={`images-${idx}`}
-                    ref={el => refs.current.push(el)}
-                    id={id}
-                  >
-                    {images}
+        </Hidden>
+        <Hidden mdUp>
+          <div className={classes.mobileContainer}>
+            <div className="label-container">
+            <SectionHeader label="projects" />
+            </div>
+            {projects.map(project => {
+              return (
+                <div
+                  key={`mobile-${project.name}`}
+                >
+                  <div className="header-container">
+                    <Typography variant="h4" className="header">
+                      <strong>{project.name}</strong>
+                    </Typography>
                   </div>
-                );
-              })}
-            </div>
-          </Grid>
-        </Grid>
+                  <div className="image-container">
+                    <GatsbyImage
+                      fluid={project.images[0].childImageSharp.fluid}
+                    ></GatsbyImage>
+                  </div>
+                  <div className="message-container">
+                    <Typography>{project.description}</Typography>
+                  </div>
+                  <div>
+                    <TechStackContainer stack={project.stack} />
+                  </div>
+                  <div className="arrow-btn-container">
+                    <ArrowButton label="VIEW PROJECT" href={project.href} />
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </Hidden>
       </div>
     </div>
   );

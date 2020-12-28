@@ -2,20 +2,20 @@ import React from "react";
 import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
+import { red, teal } from "@material-ui/core/colors";
 import { Helmet } from "react-helmet";
-import "../stylesheets/index.css";
 import Header from "./Header";
 import { NAV_HEIGHT, PROJECTS, ABOUT, CONTACT } from "../constants";
 import ProjectSection from "./ProjectSection";
 import AboutSection from "./AboutSection";
 import ContactSection from "./ContactSection";
-import { red, teal } from "@material-ui/core/colors";
+import "../stylesheets/index.css";
 
 if (typeof window !== "undefined") {
   require("smooth-scroll")('a[href*="#"]', {
     speed: 700,
     speedAsDuration: true,
-  })
+  });
 }
 
 const HOST_URL = "https://brianyates.dev";
@@ -29,27 +29,29 @@ const theme = createMuiTheme({
     primary: {
       light: teal[100],
       main: teal[200],
-      dark: teal[300]
+      dark: teal[300],
     },
     error: {
       light: red[100],
       main: red[200],
-      dark: red[300]
-    }
+      dark: red[300],
+    },
   },
   typography: {
     fontFamily: [
-      '"Varela Round"',
+      "system-ui",
       "-apple-system",
       "BlinkMacSystemFont",
-      '"Segoe UI"',
+      "Segoe UI",
       "Roboto",
-      '"Helvetica Neue"',
+      "Helvetica Neue",
       "Arial",
+      "Noto Sans",
       "sans-serif",
-      '"Apple Color Emoji"',
-      '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"',
+      "Apple Color Emoji",
+      "Segoe UI Emoji",
+      "Segoe UI Symbol",
+      "Noto Color Emoji",
     ].join(","),
   },
 });
@@ -63,6 +65,16 @@ const useStyles = makeStyles(theme => ({
   },
   section: {
     padding: `${theme.spacing(8)}px 0`,
+  },
+  footer: {
+    padding: `${theme.spacing(6)}px ${theme.spacing(3)}px ${theme.spacing(
+      3
+    )}px ${theme.spacing(3)}px`,
+    fontSize: ".7rem",
+    color: theme.palette.grey[500],
+    textAlign: "center",
+    letterSpacing: 3,
+    background: theme.palette.common.black,
   },
 }));
 
@@ -110,7 +122,6 @@ const Layout = ({
           href={`${HOST_URL}/safari-pinned-tab.svg`}
           color="#3f9796"
         />
-        <style type="text/css">{`.grecaptcha-badge { visibility: hidden }`}</style>
       </Helmet>
       <noscript>
         JavaScript is currently disabled in your browser. Most features of this
@@ -119,26 +130,31 @@ const Layout = ({
       </noscript>
       <CssBaseline />
       <ThemeProvider theme={theme}>
-        <main className={`${classes.main} active-${activeIndex}`}>
-          <Header />
-          <section ref={el => refs.current.push(el)} id={PROJECTS}>
-            <ProjectSection />
-          </section>
-          <section
-            ref={el => refs.current.push(el)}
-            id={ABOUT}
-            className={classes.section}
-          >
-            <AboutSection isVisible={activeIndex === 1} />
-          </section>
-          <section
-            ref={el => refs.current.push(el)}
-            id={CONTACT}
-            className={classes.section}
-          >
-            <ContactSection />
-          </section>
-        </main>
+        <>
+          <main className={`${classes.main} active-${activeIndex}`}>
+            <Header />
+            <section ref={el => refs.current.push(el)} id={PROJECTS}>
+              <ProjectSection />
+            </section>
+            <section
+              ref={el => refs.current.push(el)}
+              id={ABOUT}
+              className={classes.section}
+            >
+              <AboutSection isVisible={activeIndex === 1} />
+            </section>
+            <section
+              ref={el => refs.current.push(el)}
+              id={CONTACT}
+              className={classes.section}
+            >
+              <ContactSection />
+            </section>
+          </main>
+          <footer className={classes.footer}>
+            © COPYRIGHT {new Date().getFullYear()} BRIAN YATES
+          </footer>
+        </>
       </ThemeProvider>
     </>
   );

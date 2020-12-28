@@ -39,7 +39,7 @@ const AboutSection = ({ isVisible }) => {
     <div className={classes.root}>
       <Grid container spacing={4}>
         <Grid item xs={12} md={5}>
-          <SectionHeader label={"about"} />
+          <SectionHeader label="about" />
           <Typography variant="h4" className={classes.textItem}><strong>Hi, I'm Brian <span role="img" aria-label="Waving hand emoji">👋</span></strong></Typography>
           <Typography className={classes.textItem}>{paragraph1}</Typography>
           <Typography className={classes.textItem}>{paragraph2}</Typography>
