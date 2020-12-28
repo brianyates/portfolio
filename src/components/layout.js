@@ -4,12 +4,12 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import { makeStyles } from "@material-ui/core/styles";
 import { Helmet } from "react-helmet";
 import "../stylesheets/index.css";
-import Navbar from "./Navbar";
 import Header from "./Header";
 import { NAV_HEIGHT, PROJECTS, ABOUT, CONTACT } from "../constants";
 import ProjectSection from "./ProjectSection";
 import AboutSection from "./AboutSection";
 import ContactSection from "./ContactSection";
+import { red, teal } from "@material-ui/core/colors";
 
 if (typeof window !== "undefined") {
   require("smooth-scroll")('a[href*="#"]', {
@@ -25,6 +25,18 @@ const title = "Brian Yates Web Development Portfolio";
 const description = "Brian Yates portfolio";
 
 const theme = createMuiTheme({
+  palette: {
+    primary: {
+      light: teal[100],
+      main: teal[200],
+      dark: teal[300]
+    },
+    error: {
+      light: red[100],
+      main: red[200],
+      dark: red[300]
+    }
+  },
   typography: {
     fontFamily: [
       '"Varela Round"',
@@ -50,7 +62,7 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.common.white,
   },
   section: {
-    padding: `${theme.spacing(8)}px ${theme.spacing(3)}px`,
+    padding: `${theme.spacing(8)}px 0`,
   },
 }));
 
@@ -98,6 +110,7 @@ const Layout = ({
           href={`${HOST_URL}/safari-pinned-tab.svg`}
           color="#3f9796"
         />
+        <style type="text/css">{`.grecaptcha-badge { visibility: hidden }`}</style>
       </Helmet>
       <noscript>
         JavaScript is currently disabled in your browser. Most features of this

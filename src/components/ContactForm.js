@@ -1,39 +1,93 @@
 import React from "react";
+import axios from "axios";
+import { makeStyles } from "@material-ui/core/styles";
 import Dialog from "@material-ui/core/Dialog";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
 import { Formik, Form } from "formik";
 import { EMAIL_REGEX } from "../constants";
 import FormTextField from "./FormTextField";
-import FormSubmitButton from "./FormSubmitButton";
 import RecaptchaMessage from "./RecaptchaMessage";
 import { GOOGLE_RECAPTCHA_SITE_KEY } from "../config";
+import { teal } from "@material-ui/core/colors";
+
+const useStyles = makeStyles(theme => ({
+  submitBtn: {
+    width: 150,
+    [theme.breakpoints.down('sm')]: {
+      width: "100%",
+    },
+  },
+  dialog: {
+    '& .MuiPaper-root.MuiDialog-paper': {
+      background: "#222222",
+      color: theme.palette.common.white
+    }
+  },
+  dialogRoot: {
+    textAlign: 'center',
+    padding: theme.spacing(2),
+    "& .icon": {
+      height: 100,
+      width: 100,
+      borderRadius: 9999,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: `linear-gradient(45deg, ${teal[200]}, ${teal[100]})`,
+      color: theme.palette.common.black,
+      margin: `${theme.spacing(1)}px auto`
+    },
+    "& .close-btn": {
+      borderRadius: theme.shape.borderRadius,
+      color: theme.palette.common.white,
+      fontSize: '1rem',
+      padding: `${theme.spacing(1)}px`,
+      width: "100%",
+      backgroundColor: `rgba(255, 255, 255, 0)`,
+      border: `1px solid ${theme.palette.common.white}`,
+      cursor: "pointer",
+      "&:hover, &:focus": {
+        backgroundColor: `rgba(255, 255, 255, .1)`
+      }
+    },
+    "& .message": {
+      width: 320,
+      marginBottom: theme.spacing(2)
+    }
+  }
+}));
 
 const SuccessDialog = ({ open, setOpen }) => {
+  const classes = useStyles();
   function handleClose() {
     setOpen(false);
   }
   return (
-    <Dialog open={open} onClose={handleClose}>
-      <div>
-        <div>
-          <Icon name="check" width={50} />
+    <Dialog open={open} onClose={handleClose} className={classes.dialog}>
+      <div className={classes.dialogRoot}>
+        <div className="icon">
+          <svg viewBox="0 0 512 512" fill="currentColor" width="64" height="64">
+            <path d="M435.848 83.466L172.804 346.51l-96.652-96.652c-4.686-4.686-12.284-4.686-16.971 0l-28.284 28.284c-4.686 4.686-4.686 12.284 0 16.971l133.421 133.421c4.686 4.686 12.284 4.686 16.971 0l299.813-299.813c4.686-4.686 4.686-12.284 0-16.971l-28.284-28.284c-4.686-4.686-12.284-4.686-16.97 0z" />
+          </svg>
         </div>
-        <h5>Success!</h5>
-        <p className="mb-3 max-w-sm">
+        <Typography variant="h4" gutterBottom><strong>Success!</strong></Typography>
+        <Typography className="message">
           I have received your message and will get back to you as soon as
           possible.
-        </p>
+        </Typography>
         <div>
-          <button>CLOSE</button>
+          <button className="close-btn" onClick={handleClose}>CLOSE</button>
         </div>
       </div>
     </Dialog>
   );
 };
 
-const ContactForm: React.FC = () => {
+const ContactForm = () => {
+  const classes = useStyles();
   const [focused, setFocused] = React.useState(false);
   const [dialogOpen, setDialogOpen] = React.useState(false);
-  const firebase = useFirebase();
   function handleFocus() {
     if (!focused) {
       setFocused(true);
@@ -54,7 +108,7 @@ const ContactForm: React.FC = () => {
       <Formik
         initialValues={{ name: "", email: "", message: "" }}
         validate={values => {
-          const errors: { [key: string]: string } = {};
+          const errors = {};
           if (!values.name) {
             errors.name = "Please enter your full name";
           }
@@ -68,11 +122,13 @@ const ContactForm: React.FC = () => {
         }}
         onSubmit={(values, { setStatus, setSubmitting, resetForm }) => {
           setStatus(null);
-          const contactUs = firebase.functions().httpsCallable("contactUs");
+          const contactUs = async (values) => {
+            return axios.post("https://us-central1-brianyatesportfolio.cloudfunctions.net/contactUs", values);
+          };
           window.grecaptcha.ready(function () {
             window.grecaptcha
               .execute(GOOGLE_RECAPTCHA_SITE_KEY, { action: "CONTACT_US" })
-              .then((recaptchaToken: string) => {
+              .then(recaptchaToken => {
                 return contactUs({ ...values, recaptchaToken });
               })
               .then(() => {
@@ -108,12 +164,22 @@ const ContactForm: React.FC = () => {
                 handleFocus={handleFocus}
               />
               <RecaptchaMessage />
-              {status && <p className="text-red-500">{status}</p>}
-              <div className="mt-3">
-                <FormSubmitButton
-                  isSubmitting={isSubmitting}
-                  additionalClasses="w-full sm:w-52"
-                />
+              {status && (
+                <Typography color="error" gutterBottom>
+                  {status}
+                </Typography>
+              )}
+              <div>
+                <Button
+                className={classes.submitBtn}
+                  type="submit"
+                  color="primary"
+                  variant="contained"
+                  size="large"
+                  disabled={isSubmitting}
+                >
+                  SUBMIT
+                </Button>
               </div>
             </Form>
           );

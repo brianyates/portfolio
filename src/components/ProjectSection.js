@@ -14,7 +14,6 @@ import FirebaseIcon from "./icons/FirebaseIcon";
 import RubyIcon from "./icons/RubyIcon";
 import JQueryIcon from "./icons/JQueryIcon";
 import PostgresIcon from "./icons/PostgresIcon";
-import { Typography } from "@material-ui/core";
 import SectionHeader from "./SectionHeader";
 
 const useStyles = makeStyles(theme => ({
@@ -23,8 +22,35 @@ const useStyles = makeStyles(theme => ({
     color: theme.palette.common.white,
   },
   contentContainer: {
-    maxWidth: theme.breakpoints.values.lg,
+    maxWidth: theme.breakpoints.values.lg + theme.spacing(6),
+    padding: `0 ${theme.spacing(3)}px`,
     margin: "auto",
+  },
+  imageContainer: {
+    marginBottom: theme.spacing(2),
+    "& .big-image": {
+      borderRadius: 8,
+      overflow: "hidden",
+    },
+    "& .image-grid": {
+      display: "flex",
+      alignItems: "center",
+      margin: theme.spacing(1) * -1,
+      "& .mobile-image-wrapper": {
+        flexBasis: "30%",
+        maxWidth: "30%",
+        padding: theme.spacing(1),
+      },
+      "& .other-image-wrapper": {
+        flexBasis: "70%",
+        maxWidth: "70%",
+        padding: theme.spacing(1),
+        "& .other-image": {
+          overflow: "hidden",
+          borderRadius: 8,
+        },
+      },
+    },
   },
   infoContainer: {
     position: "sticky",
@@ -32,13 +58,14 @@ const useStyles = makeStyles(theme => ({
     zIndex: 50,
     left: 0,
     top: 0,
-    width: "100%",
-    height: `100vh`,
+    paddingBottom: theme.spacing(10),
     "& .message": {
       margin: `${theme.spacing(2)}px 0 ${theme.spacing(3)}px`,
     },
     "& .controls-container": {
-      margin: `${theme.spacing(2)}px 0 ${theme.spacing(3)}px -${theme.spacing(1)}px`,
+      margin: `${theme.spacing(2)}px 0 ${theme.spacing(3)}px -${theme.spacing(
+        1
+      )}px`,
       width: "100%",
       display: "flex",
       alignItems: "center",
@@ -72,6 +99,90 @@ const ProjectSection = () => {
   const classes = useStyles();
   const data = useStaticQuery(graphql`
     query {
+      till1: file(relativePath: { eq: "till_1.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 1000) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      till2: file(relativePath: { eq: "till_2.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 800) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      tillMobile: file(relativePath: { eq: "till_mobile.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 500) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      dzignStudio1: file(relativePath: { eq: "dzign_studio_1.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 1000) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      dzignStudioMobile: file(relativePath: { eq: "dzign_studio_mobile.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 500) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      dzignStudio2: file(relativePath: { eq: "dzign_studio_2.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 800) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      wavefoundry1: file(relativePath: { eq: "wavefoundry_1.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 1000) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      wavefoundryMobile: file(relativePath: { eq: "wavefoundry_mobile.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 500) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      wavefoundry2: file(relativePath: { eq: "wavefoundry_2.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 1000) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      quipquotes1: file(relativePath: { eq: "quipquotes_1.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 1000) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      quipquotesMobile: file(relativePath: { eq: "quipquotes_mobile.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 500) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      quipquotes2: file(relativePath: { eq: "quipquotes_2.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 800) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
       image1: file(relativePath: { eq: "placeholder.jpg" }) {
         childImageSharp {
           fluid(maxWidth: 1000) {
@@ -81,6 +192,31 @@ const ProjectSection = () => {
       }
     }
   `);
+  const mapImages = (bigImage, mobileImage, otherImage) => {
+    return (
+      <>
+        <div key="image-1" className={classes.imageContainer}>
+          <div className="big-image">
+            <GatsbyImage fluid={bigImage.childImageSharp.fluid} />
+          </div>
+        </div>
+        <div key="image-2" className={classes.imageContainer}>
+          <div className="image-grid">
+            <div className="mobile-image-wrapper">
+              <GatsbyImage fluid={mobileImage.childImageSharp.fluid} />
+            </div>
+            <div className="other-image-wrapper">
+              <div className="other-image">
+                <GatsbyImage
+                  fluid={otherImage.childImageSharp.fluid}
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </>
+    );
+  };
   const projects = [
     {
       name: "TILL",
@@ -102,16 +238,7 @@ const ProjectSection = () => {
           Icon: GoogleCloudIcon,
         },
       ],
-      images: (
-        <>
-          <div>
-            <GatsbyImage fluid={data.image1.childImageSharp.fluid} />
-          </div>
-          <div>
-            <GatsbyImage fluid={data.image1.childImageSharp.fluid} />
-          </div>
-        </>
-      ),
+      images: mapImages(data.till1, data.tillMobile, data.till2),
     },
     {
       name: "DZIGN STUDIO",
@@ -133,16 +260,7 @@ const ProjectSection = () => {
           Icon: FirebaseIcon,
         },
       ],
-      images: (
-        <>
-          <div>
-            <GatsbyImage fluid={data.image1.childImageSharp.fluid} />
-          </div>
-          <div>
-            <GatsbyImage fluid={data.image1.childImageSharp.fluid} />
-          </div>
-        </>
-      ),
+      images: mapImages(data.dzignStudio1, data.dzignStudioMobile, data.dzignStudio2),
     },
     {
       name: "QUIPQUOTES",
@@ -164,16 +282,7 @@ const ProjectSection = () => {
           Icon: PostgresIcon,
         },
       ],
-      images: (
-        <>
-          <div>
-            <GatsbyImage fluid={data.image1.childImageSharp.fluid} />
-          </div>
-          <div>
-            <GatsbyImage fluid={data.image1.childImageSharp.fluid} />
-          </div>
-        </>
-      ),
+      images: mapImages(data.quipquotes1, data.quipquotesMobile, data.quipquotes2),
     },
     {
       name: "WAVEFOUNDRY",
@@ -195,16 +304,7 @@ const ProjectSection = () => {
           Icon: FirebaseIcon,
         },
       ],
-      images: (
-        <>
-          <div>
-            <GatsbyImage fluid={data.image1.childImageSharp.fluid} />
-          </div>
-          <div>
-            <GatsbyImage fluid={data.image1.childImageSharp.fluid} />
-          </div>
-        </>
-      ),
+      images: mapImages(data.wavefoundry1, data.wavefoundryMobile, data.wavefoundry2),
     },
   ];
   const refs = React.useRef([]);
@@ -234,7 +334,7 @@ const ProjectSection = () => {
     <div className={classes.root}>
       <div className={classes.contentContainer}>
         <Grid container spacing={4}>
-          <Grid item xs={4}>
+          <Grid item xs={12} md={5}>
             <div className={`${classes.infoContainer}`}>
               <SectionHeader label={"projects"} />
               <div className="controls-container">
@@ -243,11 +343,11 @@ const ProjectSection = () => {
                     <div key={`button-${i}`}>
                       <a
                         href={`/#${id}`}
-                        aria-label="Project navigator"
+                        aria-label={`Project navigation button ${i+1}`}
                         className={`control-btn${
                           i === activeIndex ? " active" : ""
                         }`}
-                      ></a>
+                      ><span /></a>
                     </div>
                   );
                 })}
@@ -255,7 +355,7 @@ const ProjectSection = () => {
               {InfoContainers[activeIndex]}
             </div>
           </Grid>
-          <Grid item xs={8}>
+          <Grid item xs={12} md={7}>
             <div className={classes.projectsContainer}>
               {projects.map(({ images, id }, idx) => {
                 return (

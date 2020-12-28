@@ -1,1 +1,1 @@
-export const GOOGLE_RECAPTCHA_SITE_KEY = "";
+export const GOOGLE_RECAPTCHA_SITE_KEY = "6LewPRgaAAAAAHWng35gNCENfpnAHa-JXx4qBzdA";

@@ -1,7 +1,6 @@
 import React from "react";
 import { animated, useTrail } from "react-spring";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
 import GatsbyImage from "gatsby-image";
 import { useStaticQuery, graphql } from "gatsby";
@@ -99,7 +98,7 @@ const AboutAdditionalSection = ({ hasRendered }) => {
       image: data.coding,
       header: "I code often",
       description:
-        "Too much, even. Before work, during work, after work...but I love learning and getting better at programming.",
+        "Too much, even. Before work, during work, after work...but I love learning about the vast world of technology.",
     },
   ];
   const components = [

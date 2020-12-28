@@ -67,3 +67,9 @@ yarn-error.log
 .pnp.js
 # Yarn Integrity file
 .yarn-integrity
+src/config
+functions/src/config
+functions/node_modules
+functions/lib
+.firebase
+

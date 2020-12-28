@@ -1,10 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
-import GatsbyImage from "gatsby-image";
-import { useStaticQuery, graphql } from "gatsby";
 import Typography from "@material-ui/core/Typography";
-import { useTrail, animated } from "react-spring";
 import AboutCodeEditor from "./AboutCodeEditor";
 import SectionHeader from "./SectionHeader";
 import AboutAdditionalSection from "./AboutAdditionalSection";
@@ -33,28 +30,17 @@ const paragraph2 =
 const AboutSection = ({ isVisible }) => {
   const [hasRendered, setHasRendered] = React.useState(false);
   const classes = useStyles();
-  const data = useStaticQuery(graphql`
-    query {
-      image: file(relativePath: { eq: "brian.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 1000) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-    }
-  `);
   React.useEffect(() => {
     if (isVisible && !hasRendered) {
       setHasRendered(true);
     }
-  }, [isVisible]);
+  }, [isVisible, hasRendered]);
   return (
     <div className={classes.root}>
       <Grid container spacing={4}>
         <Grid item xs={12} md={5}>
           <SectionHeader label={"about"} />
-          <Typography variant="h4" className={classes.textItem}><strong>Hi, I'm Brian <span>👋</span></strong></Typography>
+          <Typography variant="h4" className={classes.textItem}><strong>Hi, I'm Brian <span role="img" aria-label="Waving hand emoji">👋</span></strong></Typography>
           <Typography className={classes.textItem}>{paragraph1}</Typography>
           <Typography className={classes.textItem}>{paragraph2}</Typography>
           <div>

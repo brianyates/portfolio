@@ -2,6 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   blue,
+  blueGrey,
   green,
   grey,
   lightBlue,
@@ -12,7 +13,7 @@ import {
 
 const useStyles = makeStyles(theme => ({
   root: {
-    backgroundColor: theme.palette.grey[900],
+    backgroundColor: blueGrey[900],
     padding: theme.spacing(2),
     display: "block",
     overflow: "auto",
@@ -99,6 +100,19 @@ const lines = [
     indent: 2,
     content: [
       {
+        text: "constructor",
+        color: codeColors.keyword
+      },
+      {
+        text: "() {",
+        color: codeColors.operator
+      }
+    ]
+  },
+  {
+    indent: 4,
+    content: [
+      {
         text: "super",
         color: codeColors.func,
       },
@@ -115,6 +129,15 @@ const lines = [
         color: codeColors.operator,
       },
     ],
+  },
+  {
+    indent: 2,
+    content: [
+      {
+        text: "}",
+        color: codeColors.operator
+      }
+    ]
   },
   {
     indent: 2,
@@ -531,6 +554,7 @@ const AboutCodeEditor = ({ isVisible }) => {
       for (let j = 0; j < lines[i].content.length; j++) {
         const letters = lines[i].content[j].text.split("");
         for (let k = 0; k < letters.length; k++) {
+          // eslint-disable-next-line
           await wait(() => {
             refs.current[refTracker].innerHTML += letters[k];
           }, 30);
@@ -546,7 +570,7 @@ const AboutCodeEditor = ({ isVisible }) => {
       setStarted(true);
       writeCode();
     }
-  }, [isVisible]);
+  }, [isVisible, finished, started]);
   return (
     <code className={classes.root}>
       <pre className={classes.pre}>

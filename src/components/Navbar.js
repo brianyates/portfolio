@@ -1,7 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { CONTACT, NAV_HEIGHT, PROJECTS, ABOUT } from "../constants";
-import { teal, blue, purple } from "@material-ui/core/colors";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -24,7 +23,8 @@ const useStyles = makeStyles(theme => ({
       listStyleType: "none",
       width: "100%",
       justifyContent: "space-between",
-      maxWidth: theme.breakpoints.values.lg,
+      maxWidth: theme.breakpoints.values.lg + theme.spacing(6),
+      padding: `0 ${theme.spacing(3)}px`,
       margin: "0 auto",
       "& > li": {
         flexGrow: 1,
@@ -43,17 +43,7 @@ const useStyles = makeStyles(theme => ({
         textDecoration: "none",
         transition: `color ${theme.transitions.duration.shorter}ms`,
         "&:hover, &:focus": {
-          color: blue[100],
-        },
-      },
-      "& > li:first-child > a": {
-        "&:hover, &:focus": {
-          color: teal[100],
-        },
-      },
-      "& > li:last-child > a": {
-        "&:hover, &:focus": {
-          color: purple[100],
+          color: theme.palette.common.white,
         },
       },
     },

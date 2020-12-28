@@ -38,7 +38,7 @@ const useStyles = makeStyles(theme => ({
     },
     "& p": {
       fontSize: "4vw",
-      letterSpacing: "1vw",
+      letterSpacing: "0.85vw",
     }
   },
   divider: {
