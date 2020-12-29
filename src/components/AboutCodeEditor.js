@@ -10,6 +10,10 @@ import {
   orange,
   yellow,
 } from "@material-ui/core/colors";
+import useIntersectionObserver from "./useIntersectionObserver";
+
+
+const threshold = 0.2;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -17,13 +21,14 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     display: "block",
     overflow: "auto",
-    borderRadius: theme.shape.borderRadius
+    borderRadius: theme.shape.borderRadius,
   },
   pre: {
     display: "flex",
     fontFamily: "inherit",
     fontSize: "1rem",
     color: theme.palette.grey[300],
+    margin: 0,
   },
   lineNumber: {
     display: "block",
@@ -36,9 +41,9 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: theme.palette.common.white,
     opacity: 0.9,
     width: 3,
-    display: "inline-flex",
+    display: "block",
     marginLeft: 1,
-    transform: "translateY(1px)",
+    marginTop: 3,
     "&.finished": {
       animation: `$blink 1s ${theme.transitions.easing.easeInOut} 0s infinite`,
     },
@@ -101,13 +106,13 @@ const lines = [
     content: [
       {
         text: "constructor",
-        color: codeColors.keyword
+        color: codeColors.keyword,
       },
       {
         text: "() {",
-        color: codeColors.operator
-      }
-    ]
+        color: codeColors.operator,
+      },
+    ],
   },
   {
     indent: 4,
@@ -135,9 +140,9 @@ const lines = [
     content: [
       {
         text: "}",
-        color: codeColors.operator
-      }
-    ]
+        color: codeColors.operator,
+      },
+    ],
   },
   {
     indent: 2,
@@ -541,10 +546,11 @@ const wait = (callback, duration) =>
     setTimeout(() => resolve(callback()), duration);
   });
 
-const AboutCodeEditor = ({ isVisible }) => {
+const AboutCodeEditor = () => {
+  const codeElement = React.useRef(null);
+  const [isIntersecting, setIsIntersecting] = React.useState(false);
   const [activeLine, setActiveLine] = React.useState(0);
   const [started, setStarted] = React.useState(false);
-  const [finished, setFinished] = React.useState(false);
   const refs = React.useRef([]);
   const classes = useStyles();
   const writeCode = async () => {
@@ -563,16 +569,25 @@ const AboutCodeEditor = ({ isVisible }) => {
         refTracker++;
       }
     }
-    setFinished(true);
   };
+  useIntersectionObserver(
+    threshold,
+    React.useCallback(([entry]) => {
+      if (!isIntersecting) {
+        setIsIntersecting(Boolean(entry.intersectionRatio > threshold));
+      }
+    }, [isIntersecting]),
+    codeElement
+  );
   React.useEffect(() => {
-    if (isVisible && !finished && !started) {
+    if (isIntersecting && !started) {
       setStarted(true);
       writeCode();
     }
-  }, [isVisible, finished, started]);
+  }, [isIntersecting, started]);
+
   return (
-    <code className={classes.root}>
+    <code className={classes.root} ref={codeElement}>
       <pre className={classes.pre}>
         <div>
           {lines.map((line, idx) => {
@@ -602,7 +617,13 @@ const AboutCodeEditor = ({ isVisible }) => {
                     />
                   );
                 })}
-                {idx1 === activeLine && <span className={`${classes.cursor}${!isVisible || idx1 === lines.length - 1 ? " finished" : ""}`} />}
+                {idx1 === activeLine && (
+                  <span
+                    className={`${classes.cursor}${
+                      !isIntersecting || idx1 === lines.length - 1 ? " finished" : ""
+                    }`}
+                  />
+                )}
               </div>
             );
           })}

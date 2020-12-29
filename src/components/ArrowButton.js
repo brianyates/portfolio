@@ -13,9 +13,13 @@ const useStyles = makeStyles(theme => ({
     fontSize: "1.1rem",
     textDecoration: "none",
     alignItems: "center",
+    justifyContent: 'center',
     color: theme.palette.common.white,
     backgroundColor: "rgba(255, 255, 255, 0)",
     transition: `background-color ${transitionDuration}ms`,
+    [theme.breakpoints.down('xs')]: {
+      display: 'flex',
+    },
     '&:hover, &:focus': {
         backgroundColor: "rgba(255, 255, 255, .1)"
     },

@@ -30,16 +30,29 @@ const useStyles = makeStyles(theme => ({
     fontFamily: theme.typography.fontFamily
   },
   headerText: {
-    animation: `$colors 5s ${theme.transitions.easing.easeInOut} 0s infinite alternate-reverse none`,
     textAlign: "center",
     cursor: "default",
+    "& h1, p": {
+      background: `linear-gradient(45deg, ${teal[200]}, ${cyan[200]}, ${lightBlue[200]}, ${blue[200]}, ${indigo[200]}, ${deepPurple[200]}, ${purple[200]}, ${pink[200]})`,
+      backgroundSize: "300%",
+      animation: `$colors 5s ${theme.transitions.easing.easeInOut} 0s infinite alternate-reverse none`,
+      color: "transparent",
+      backgroundClip: "text",
+      WebkitBackgroundClip: "text",
+    },
     "& h1": {
       fontSize: "12vw",
-      lineHeight: 1
+      lineHeight: 1,
+      [theme.breakpoints.down('sm')]: {
+        fontSize: "16vw"
+      }
     },
     "& p": {
       fontSize: "4vw",
       letterSpacing: ".95vw",
+      [theme.breakpoints.down('sm')]: {
+        fontSize: "5.8vw"
+      }
     }
   },
   divider: {
@@ -81,12 +94,6 @@ const Header = () => {
       <animated.div
         className={classes.headerText}
         style={{
-          background: `linear-gradient(45deg, ${teal[200]}, ${cyan[200]}, ${lightBlue[200]}, ${blue[200]}, ${indigo[200]}, ${deepPurple[200]}, ${purple[200]}, ${pink[200]})`,
-          WebkitTextFillColor: "transparent",
-          boxDecorationBreak: "clone",
-          WebkitBackgroundClip: "text",
-          textShadow: "none",
-          backgroundSize: "300%",
           transform: props.xy.interpolate(trans),
         }}
       >

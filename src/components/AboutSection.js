@@ -27,14 +27,8 @@ const paragraph1 =
 const paragraph2 =
   "I started by writing simple VBA scripts to make my job easier, then progressed into using cooler languages like Python, Ruby and JavaScript to build hobby apps. I knew I needed to make a career of coding, so in 2019 I finangled my way into a full-time developer role at Allstate after months of learning and networking.";
 
-const AboutSection = ({ isVisible }) => {
-  const [hasRendered, setHasRendered] = React.useState(false);
+const AboutSection = () => {
   const classes = useStyles();
-  React.useEffect(() => {
-    if (isVisible && !hasRendered) {
-      setHasRendered(true);
-    }
-  }, [isVisible, hasRendered]);
   return (
     <div className={classes.root}>
       <Grid container spacing={4}>
@@ -44,12 +38,12 @@ const AboutSection = ({ isVisible }) => {
           <Typography className={classes.textItem}>{paragraph1}</Typography>
           <Typography className={classes.textItem}>{paragraph2}</Typography>
           <div>
-            <AboutAdditionalSection hasRendered={hasRendered} />
+            <AboutAdditionalSection />
           </div>
         </Grid>
         <Grid item xs={12} md={7}>
           <div>
-            <AboutCodeEditor isVisible={isVisible} />
+            <AboutCodeEditor />
           </div>
         </Grid>
       </Grid>

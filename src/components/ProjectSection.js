@@ -1,12 +1,10 @@
 import React from "react";
-import { throttle } from "lodash";
 import Grid from "@material-ui/core/Grid";
 import { useStaticQuery, graphql } from "gatsby";
 import GatsbyImage from "gatsby-image";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
-import { NAV_HEIGHT } from "../constants";
 import ProjectInfoContainer from "./ProjectInfoContainer";
 import NodeIcon from "./icons/NodeIcon";
 import ReactIcon from "./icons/ReactIcon";
@@ -19,6 +17,7 @@ import PostgresIcon from "./icons/PostgresIcon";
 import SectionHeader from "./SectionHeader";
 import TechStackContainer from "./TechStackContainer";
 import ArrowButton from "./ArrowButton";
+import ProjectImageContainer from "./ProjectImageContainer";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -58,11 +57,11 @@ const useStyles = makeStyles(theme => ({
   },
   infoContainer: {
     position: "sticky",
-    paddingTop: theme.spacing(3),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
     zIndex: 50,
     left: 0,
     top: 0,
-    paddingBottom: theme.spacing(10),
     "& .message": {
       margin: `${theme.spacing(2)}px 0 ${theme.spacing(3)}px`,
     },
@@ -91,13 +90,9 @@ const useStyles = makeStyles(theme => ({
       },
     },
   },
-  projectsContainer: {
-    paddingTop: theme.spacing(3),
-    paddingBottom: theme.spacing(8),
-  },
   mobileContainer: {
     "& .label-container": {
-      paddingTop: theme.spacing(10)
+      paddingTop: theme.spacing(2),
     },
     "& .header-container": {
       marginTop: theme.spacing(3),
@@ -116,7 +111,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const PROJECT_COUNT = 4;
 const ProjectSection = () => {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const classes = useStyles();
@@ -329,25 +323,12 @@ const ProjectSection = () => {
       images: [data.wavefoundry1, data.wavefoundryMobile, data.wavefoundry2],
     },
   ];
-  const refs = React.useRef([]);
-  React.useEffect(() => {
-    const handleScroll = throttle(() => {
-      for (let i = 0; i < PROJECT_COUNT; i++) {
-        const { top, bottom } = refs.current[i].getBoundingClientRect();
-        if (top <= NAV_HEIGHT && bottom >= NAV_HEIGHT) {
-          setActiveIndex(i);
-          break;
-        }
-      }
-    }, 250);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-  const InfoContainers = projects.map(({ images, ...other }, idx) => {
+  const InfoContainers = projects.map(({ images, id, ...other }, idx) => {
     return (
       <ProjectInfoContainer
         {...other}
-        key={`container-${idx}`}
+        id={id}
+        key={id}
         active={idx === activeIndex}
       />
     );
@@ -381,16 +362,19 @@ const ProjectSection = () => {
               </div>
             </Grid>
             <Grid item xs={12} md={7}>
-              <div className={classes.projectsContainer}>
+              <div>
                 {projects.map(({ images, id }, idx) => {
+                  const handleIntersect = () => {
+                    setActiveIndex(idx);
+                  };
                   return (
-                    <div
-                      key={`images-${idx}`}
-                      ref={el => refs.current.push(el)}
+                    <ProjectImageContainer
                       id={id}
+                      key={`images-${idx}`}
+                      handleIntersect={handleIntersect}
                     >
                       {mapImages(images)}
-                    </div>
+                    </ProjectImageContainer>
                   );
                 })}
               </div>
@@ -400,13 +384,11 @@ const ProjectSection = () => {
         <Hidden mdUp>
           <div className={classes.mobileContainer}>
             <div className="label-container">
-            <SectionHeader label="projects" />
+              <SectionHeader label="projects" />
             </div>
             {projects.map(project => {
               return (
-                <div
-                  key={`mobile-${project.name}`}
-                >
+                <div key={`mobile-${project.name}`}>
                   <div className="header-container">
                     <Typography variant="h4" className="header">
                       <strong>{project.name}</strong>

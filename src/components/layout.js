@@ -5,7 +5,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { red, teal } from "@material-ui/core/colors";
 import { Helmet } from "react-helmet";
 import Header from "./Header";
-import { NAV_HEIGHT, PROJECTS, ABOUT, CONTACT } from "../constants";
+import { PROJECTS, ABOUT, CONTACT } from "../constants";
 import ProjectSection from "./ProjectSection";
 import AboutSection from "./AboutSection";
 import ContactSection from "./ContactSection";
@@ -59,26 +59,26 @@ const theme = createMuiTheme({
 // TODO - use react-spring to change background colors on scroll
 const useStyles = makeStyles(theme => ({
   main: {
-    transition: `background-color ${theme.transitions.duration.standard}ms`,
     backgroundColor: theme.palette.common.black,
     color: theme.palette.common.white,
   },
   section: {
-    padding: `${theme.spacing(8)}px 0`,
+    paddingBottom: theme.spacing(12),
+    [theme.breakpoints.down("sm")]: {
+      paddingBottom: theme.spacing(8),
+    },
   },
   footer: {
-    padding: `${theme.spacing(6)}px ${theme.spacing(3)}px ${theme.spacing(
+    padding: `${theme.spacing(3)}px ${theme.spacing(3)}px ${theme.spacing(
       3
     )}px ${theme.spacing(3)}px`,
     fontSize: ".7rem",
-    color: theme.palette.grey[500],
+    color: theme.palette.grey[600],
     textAlign: "center",
     letterSpacing: 3,
     background: theme.palette.common.black,
   },
 }));
-
-const SECTION_COUNT = 3;
 
 const Layout = ({
   pageTitle,
@@ -88,22 +88,6 @@ const Layout = ({
   ogImage = defaultOgImage,
 }) => {
   const classes = useStyles();
-  const refs = React.useRef([]);
-  const [activeIndex, setActiveIndex] = React.useState(null);
-  React.useEffect(() => {
-    const handleScroll = () => {
-      for (let i = 0; i < SECTION_COUNT; i++) {
-        const { top, bottom } = refs.current[i].getBoundingClientRect();
-        if (top <= NAV_HEIGHT && bottom >= NAV_HEIGHT) {
-          setActiveIndex(i);
-          return;
-        }
-      }
-      setActiveIndex(null);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
   return (
     <>
       <Helmet htmlAttributes={{ lang: "en" }}>
@@ -131,23 +115,15 @@ const Layout = ({
       <CssBaseline />
       <ThemeProvider theme={theme}>
         <>
-          <main className={`${classes.main} active-${activeIndex}`}>
+          <main className={`${classes.main}`}>
             <Header />
-            <section ref={el => refs.current.push(el)} id={PROJECTS}>
+            <section id={PROJECTS} className={classes.section}>
               <ProjectSection />
             </section>
-            <section
-              ref={el => refs.current.push(el)}
-              id={ABOUT}
-              className={classes.section}
-            >
-              <AboutSection isVisible={activeIndex === 1} />
+            <section id={ABOUT} className={classes.section}>
+              <AboutSection />
             </section>
-            <section
-              ref={el => refs.current.push(el)}
-              id={CONTACT}
-              className={classes.section}
-            >
+            <section id={CONTACT} className={classes.section}>
               <ContactSection />
             </section>
           </main>

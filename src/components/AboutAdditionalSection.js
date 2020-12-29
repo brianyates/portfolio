@@ -1,5 +1,4 @@
 import React from "react";
-import { animated, useTrail } from "react-spring";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import GatsbyImage from "gatsby-image";
@@ -32,16 +31,20 @@ const useStyles = makeStyles(theme => ({
     "&.full-width": {
       flexBasis: "100%",
       maxWidth: "100%",
-      paddingBottom: 0
+      paddingBottom: 0,
     },
     "&.half-width": {
       flexBasis: "50%",
       maxWidth: "50%",
+      [theme.breakpoints.down('xs')]: {
+        flexBasis: "100%",
+        maxWidth: "100%"
+      }
     },
   },
 }));
 
-const AboutAdditionalSection = ({ hasRendered }) => {
+const AboutAdditionalSection = () => {
   const classes = useStyles();
   const data = useStaticQuery(graphql`
     query {
@@ -101,44 +104,29 @@ const AboutAdditionalSection = ({ hasRendered }) => {
         "Too much, even. Before work, during work, after work...but I love learning about the vast world of technology.",
     },
   ];
-  const components = [
-    <Typography variant="h6" className={classes.also}>
-      ALSO
-    </Typography>,
-    ...items.map(({ image, header, description }, index) => {
-      return (
-        <>
-          <div className={classes.icon}>
-            <GatsbyImage fluid={image.childImageSharp.fluid} loading="eager" />
-          </div>
-          <Typography className={classes.header}>{header}</Typography>
-          <Typography className={classes.description}>{description}</Typography>
-        </>
-      );
-    }),
-  ];
-  const trail = useTrail(components.length, {
-    config: { mass: 1, tension: 2000, friction: 200 },
-    opacity: hasRendered ? 1 : 0,
-    y: hasRendered ? 0 : 20,
-    from: { opacity: 0, y: 20 },
-  });
   return (
     <div className={classes.gridContainer}>
-      {trail.map(({ y, ...rest }, index) => (
-        <animated.div
-          key={index}
-          style={{
-            ...rest,
-            transform: y.interpolate(val => `translateY(${val}px)`),
-          }}
-          className={`${classes.gridItem} ${
-            index === 0 ? "full-width" : "half-width"
-          }`}
-        >
-          {components[index]}
-        </animated.div>
-      ))}
+      <div className={`${classes.gridItem} full-width`}>
+        <Typography variant="h6" className={classes.also}>
+          ALSO
+        </Typography>
+      </div>
+      {items.map(({ image, header, description }, index) => {
+        return (
+          <div className={`${classes.gridItem} half-width`} key={`addl-item-${index}`}>
+            <div className={classes.icon}>
+              <GatsbyImage
+                fluid={image.childImageSharp.fluid}
+                loading="eager"
+              />
+            </div>
+            <Typography className={classes.header}>{header}</Typography>
+            <Typography className={classes.description}>
+              {description}
+            </Typography>
+          </div>
+        );
+      })}
     </div>
   );
 };

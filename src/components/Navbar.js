@@ -1,6 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { CONTACT, NAV_HEIGHT, PROJECTS, ABOUT } from "../constants";
+import { CONTACT, PROJECTS, ABOUT } from "../constants";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -10,7 +10,7 @@ const useStyles = makeStyles(theme => ({
     width: "100%",
     zIndex: 100,
     display: "flex",
-    height: NAV_HEIGHT,
+    height: 56,
     alignItems: "center",
     fontFamily: theme.typography.fontFamily,
     "&.fixed": {
