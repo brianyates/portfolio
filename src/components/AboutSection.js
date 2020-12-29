@@ -25,7 +25,7 @@ const useStyles = makeStyles(theme => ({
 const paragraph1 =
   "I'm an engineer from Pittsburgh, Pennsylvania. After graduating from Penn State in 2012, I migrated below the Mason Dixon to Florida, then North Carolina in 2014. I started my career in manufacturing, but quickly discovered that I had a secret addiction to programming.";
 const paragraph2 =
-  "I started by writing simple VBA scripts to make my job easier, then progressed into using cooler languages like Python, Ruby and JavaScript to build hobby apps. I knew I needed to make a career of coding, so in 2019 I finangled my way into a full-time developer role at Allstate after months of learning and networking.";
+  "I started by writing simple VBA scripts to make my job easier, then progressed into using cooler languages like Python, Ruby and JavaScript to build hobby apps. I knew I needed to make a career of coding, so in 2019 I finangled my way into a full-time job as a software engineer at Allstate after months of learning and networking.";
 
 const AboutSection = () => {
   const classes = useStyles();
