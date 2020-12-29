@@ -101,7 +101,7 @@ const AboutAdditionalSection = () => {
       image: data.coding,
       header: "I code often",
       description:
-        "Too much, even. Before work, during work, after work...but I love learning about the vast world of technology.",
+        "Maybe too much some days...but I love honing my programming skills and learning about the vast world of technology.",
     },
   ];
   return (
