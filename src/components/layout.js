@@ -19,10 +19,10 @@ if (typeof window !== "undefined") {
 }
 
 const HOST_URL = "https://brianyates.dev";
-const defaultOgImage = `${HOST_URL}/og-image.png`;
+const ogImage = `${HOST_URL}/og-image.png`;
 
 const title = "Brian Yates Web Development Portfolio";
-const description = "Brian Yates portfolio";
+const description = "My name is Brian Yates - I am a software engineer who specializes in JavaScript, Node and React. Check out my website to learn more about me and what I've been working on!";
 
 const theme = createMuiTheme({
   palette: {
@@ -81,11 +81,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Layout = ({
-  pageTitle,
-  pageDescription,
-  pageURL,
   children,
-  ogImage = defaultOgImage,
 }) => {
   const classes = useStyles();
   return (
@@ -94,7 +90,7 @@ const Layout = ({
         <title>{title}</title>
         <meta name="description" content={description} />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content={pageURL} />
+        <meta property="og:url" content={HOST_URL} />
         <meta property="og:description" content={description} />
         <meta property="og:title" content={title} />
         <meta property="og:image" content={ogImage} />
