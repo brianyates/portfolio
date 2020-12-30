@@ -174,7 +174,7 @@ const ProjectSection = () => {
       }
       wavefoundry2: file(relativePath: { eq: "wavefoundry_2.png" }) {
         childImageSharp {
-          fluid(maxWidth: 1000) {
+          fluid(maxWidth: 800) {
             ...GatsbyImageSharpFluid
           }
         }
@@ -196,13 +196,6 @@ const ProjectSection = () => {
       quipquotes2: file(relativePath: { eq: "quipquotes_2.png" }) {
         childImageSharp {
           fluid(maxWidth: 800) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-      image1: file(relativePath: { eq: "placeholder.jpg" }) {
-        childImageSharp {
-          fluid(maxWidth: 1000) {
             ...GatsbyImageSharpFluid
           }
         }

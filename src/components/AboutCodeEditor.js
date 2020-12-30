@@ -12,7 +12,6 @@ import {
 } from "@material-ui/core/colors";
 import useIntersectionObserver from "./useIntersectionObserver";
 
-
 const threshold = 0.2;
 
 const useStyles = makeStyles(theme => ({
@@ -37,13 +36,16 @@ const useStyles = makeStyles(theme => ({
     textAlign: "right",
   },
   cursor: {
-    height: 16,
+    height: 18,
     backgroundColor: theme.palette.common.white,
     opacity: 0.9,
-    width: 3,
+    width: 2,
     display: "block",
     marginLeft: 1,
-    marginTop: 3,
+    marginTop: 2,
+    [theme.breakpoints.down('xs')]: {
+      marginTop: 0
+    },
     "&.finished": {
       animation: `$blink 1s ${theme.transitions.easing.easeInOut} 0s infinite`,
     },
@@ -54,13 +56,13 @@ const useStyles = makeStyles(theme => ({
   },
   "@keyframes blink": {
     "0%": {
-      opacity: 1,
+      opacity: 0.9,
     },
     "50%": {
       opacity: 0,
     },
     "100%": {
-      opacity: 1,
+      opacity: 0.9,
     },
   },
 }));
@@ -119,7 +121,7 @@ const lines = [
     content: [
       {
         text: "super",
-        color: codeColors.func,
+        color: codeColors.keyword,
       },
       {
         text: "(",

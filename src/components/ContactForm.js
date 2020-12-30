@@ -52,8 +52,8 @@ const useStyles = makeStyles(theme => ({
       }
     },
     "& .message": {
-      width: 320,
-      marginBottom: theme.spacing(2)
+      maxWidth: 320,
+      margin: `0 auto ${theme.spacing(2)}px auto`
     }
   }
 }));
@@ -144,7 +144,7 @@ const ContactForm = () => {
       >
         {({ isSubmitting, status }) => {
           return (
-            <Form>
+            <Form autoComplete="off">
               <FormTextField
                 name="name"
                 label="Full name"
