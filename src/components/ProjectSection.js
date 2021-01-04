@@ -30,7 +30,7 @@ const useStyles = makeStyles(theme => ({
     margin: "auto",
   },
   imageContainer: {
-    marginBottom: theme.spacing(2),
+    paddingTop: theme.spacing(2),
     "& .big-image": {
       borderRadius: 8,
       overflow: "hidden",
@@ -109,6 +109,9 @@ const useStyles = makeStyles(theme => ({
       paddingBottom: theme.spacing(2),
     },
   },
+  projectGridItem: {
+    paddingTop: "0px !important"
+  }
 }));
 
 const ProjectSection = () => {
@@ -331,7 +334,7 @@ const ProjectSection = () => {
       <div className={classes.contentContainer}>
         <Hidden smDown>
           <Grid container spacing={4}>
-            <Grid item xs={12} md={5}>
+            <Grid item xs={12} md={5} className={classes.projectGridItem}>
               <div className={classes.infoContainer}>
                 <SectionHeader label="projects" />
                 <div className="controls-container">
@@ -354,7 +357,7 @@ const ProjectSection = () => {
                 {InfoContainers[activeIndex]}
               </div>
             </Grid>
-            <Grid item xs={12} md={7}>
+            <Grid item xs={12} md={7} className={classes.projectGridItem}>
               <div>
                 {projects.map(({ images, id }, idx) => {
                   const handleIntersect = () => {
