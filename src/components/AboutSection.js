@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
     overflow: "hidden",
   },
   textItem: {
-    marginTop: theme.spacing(3)
+    marginTop: theme.spacing(3),
   },
 }));
 
@@ -34,7 +34,14 @@ const AboutSection = () => {
       <Grid container spacing={4}>
         <Grid item xs={12} md={5}>
           <SectionHeader label="about" />
-          <Typography variant="h4" className={classes.textItem}><strong>Hi, I'm Brian <span role="img" aria-label="Waving hand emoji">👋</span></strong></Typography>
+          <Typography variant="h4" className={classes.textItem}>
+            <strong>
+              Hi, I'm Brian{" "}
+              <span role="img" aria-label="Waving hand emoji">
+                👋
+              </span>
+            </strong>
+          </Typography>
           <Typography className={classes.textItem}>{paragraph1}</Typography>
           <Typography className={classes.textItem}>{paragraph2}</Typography>
           <div>

@@ -36,10 +36,10 @@ const useStyles = makeStyles(theme => ({
     "&.half-width": {
       flexBasis: "50%",
       maxWidth: "50%",
-      [theme.breakpoints.down('xs')]: {
+      [theme.breakpoints.down("xs")]: {
         flexBasis: "100%",
-        maxWidth: "100%"
-      }
+        maxWidth: "100%",
+      },
     },
   },
 }));
@@ -113,7 +113,10 @@ const AboutAdditionalSection = () => {
       </div>
       {items.map(({ image, header, description }, index) => {
         return (
-          <div className={`${classes.gridItem} half-width`} key={`addl-item-${index}`}>
+          <div
+            className={`${classes.gridItem} half-width`}
+            key={`addl-item-${index}`}
+          >
             <div className={classes.icon}>
               <GatsbyImage
                 fluid={image.childImageSharp.fluid}

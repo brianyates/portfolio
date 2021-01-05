@@ -14,9 +14,7 @@ const useStyles = makeStyles(theme => ({
 const SectionHeader = ({ label }) => {
   const classes = useStyles();
   return (
-    <Typography className={`${classes.root}`}>
-      {label.toUpperCase()}
-    </Typography>
+    <Typography className={`${classes.root}`}>{label.toUpperCase()}</Typography>
   );
 };
 

@@ -110,8 +110,8 @@ const useStyles = makeStyles(theme => ({
     },
   },
   projectGridItem: {
-    paddingTop: "0px !important"
-  }
+    paddingTop: "0px !important",
+  },
 }));
 
 const ProjectSection = () => {
@@ -211,17 +211,26 @@ const ProjectSection = () => {
       <>
         <div key="image-1" className={classes.imageContainer}>
           <div className="big-image">
-            <GatsbyImage fluid={bigImage.childImageSharp.fluid} />
+            <GatsbyImage
+              fluid={bigImage.childImageSharp.fluid}
+              loading="eager"
+            />
           </div>
         </div>
         <div key="image-2" className={classes.imageContainer}>
           <div className="image-grid">
             <div className="mobile-image-wrapper">
-              <GatsbyImage fluid={mobileImage.childImageSharp.fluid} />
+              <GatsbyImage
+                fluid={mobileImage.childImageSharp.fluid}
+                loading="eager"
+              />
             </div>
             <div className="other-image-wrapper">
               <div className="other-image">
-                <GatsbyImage fluid={otherImage.childImageSharp.fluid} />
+                <GatsbyImage
+                  fluid={otherImage.childImageSharp.fluid}
+                  loading="eager"
+                />
               </div>
             </div>
           </div>
@@ -393,7 +402,7 @@ const ProjectSection = () => {
                   <div className="image-container">
                     <GatsbyImage
                       fluid={project.images[0].childImageSharp.fluid}
-                    ></GatsbyImage>
+                    />
                   </div>
                   <div className="message-container">
                     <Typography>{project.description}</Typography>

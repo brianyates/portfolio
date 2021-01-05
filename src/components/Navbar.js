@@ -46,9 +46,9 @@ const useStyles = makeStyles(theme => ({
         "&:hover, &:focus": {
           color: theme.palette.common.white,
         },
-        [theme.breakpoints.down('xs')]: {
-          fontSize: '.8rem'
-        }
+        [theme.breakpoints.down("xs")]: {
+          fontSize: ".8rem",
+        },
       },
     },
   },

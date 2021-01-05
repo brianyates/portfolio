@@ -42,47 +42,47 @@ const useStyles = makeStyles(theme => ({
     opacity: 0.6,
   },
   contactLinkContainer: {
-    marginBottom: theme.spacing(1)
+    marginBottom: theme.spacing(1),
   },
   contactLink: {
-    display: 'inline-flex',
-    alignItems: 'center',
+    display: "inline-flex",
+    alignItems: "center",
     fontFamily: theme.typography.fontFamily,
     color: theme.palette.common.white,
     transition: `color ${theme.transitions.duration.shorter}ms`,
-    textDecoration: 'none',
+    textDecoration: "none",
     "&:hover, &:focus": {
-      color: theme.palette.primary.light
+      color: theme.palette.primary.light,
     },
     "& .icon-container": {
       marginRight: theme.spacing(1),
-      display: 'flex',
-      alignItems: 'center',
+      display: "flex",
+      alignItems: "center",
       "& svg": {
         width: 20,
         height: 20,
-        color: 'inherit'
-      }
-    }
-  }
+        color: "inherit",
+      },
+    },
+  },
 }));
 const contactlinks = [
   {
     label: "LinkedIn",
     href: "https://www.linkedin.com/in/brian-yates-38267333/",
-    Icon: <LinkedInIcon />
+    Icon: <LinkedInIcon />,
   },
   {
     label: "GitHub",
     href: "https://github.com/brianyates",
-    Icon: <GitHubIcon />
+    Icon: <GitHubIcon />,
   },
   {
     label: "Email",
     href: "mailto:hello@brianyates.dev",
-    Icon: <EmailIcon />
-  }
-]
+    Icon: <EmailIcon />,
+  },
+];
 const ContactSection = () => {
   const classes = useStyles();
   return (
@@ -91,7 +91,10 @@ const ContactSection = () => {
         <Grid item xs={12} md={5}>
           <SectionHeader label="contact" />
           <Typography className={classes.heading} variant="h4">
-            Hit me up! <span role="img" aria-label="Call me emoji">🤙</span>
+            Hit me up!{" "}
+            <span role="img" aria-label="Call me emoji">
+              🤙
+            </span>
           </Typography>
           <Typography>
             If you want to learn more about what I can offer or just want to
@@ -106,10 +109,12 @@ const ContactSection = () => {
               <div key={href} className={classes.contactLinkContainer}>
                 <a className={classes.contactLink} href={href}>
                   <div className="icon-container">{Icon}</div>
-                  <div><Typography>{label}</Typography></div>
+                  <div>
+                    <Typography>{label}</Typography>
+                  </div>
                 </a>
               </div>
-            )
+            );
           })}
         </Grid>
         <Grid item xs={12} md={7}>

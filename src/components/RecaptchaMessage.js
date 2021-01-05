@@ -8,27 +8,27 @@ const useStyles = makeStyles(theme => ({
     borderRadius: theme.shape.borderRadius,
     background: blueGrey[800],
     padding: theme.spacing(1),
-    display: 'inline-block',
+    display: "inline-block",
     margin: `${theme.spacing(2)}px 0`,
     border: `1px solid ${blueGrey[900]}`,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       display: "block",
     },
     "& .links-container": {
-      display: 'flex',
-      alignItems: 'center',
+      display: "flex",
+      alignItems: "center",
       "& a": {
         color: theme.palette.grey[200],
-        textDecoration: 'none',
-        fontSize: 11
+        textDecoration: "none",
+        fontSize: 11,
       },
       "& a:hover, a:focus": {
-        textDecoration: 'underline'
+        textDecoration: "underline",
       },
       "& div:first-child": {
-        marginRight: theme.spacing(1.5)
-      }
-    }
+        marginRight: theme.spacing(1.5),
+      },
+    },
   },
 }));
 
@@ -37,7 +37,9 @@ const RecaptchaMessage = () => {
   return (
     <div className={classes.root}>
       <div>
-        <Typography variant='caption'>This form is protected by reCAPTCHA</Typography>
+        <Typography variant="caption">
+          This form is protected by reCAPTCHA
+        </Typography>
       </div>
       <div className="links-container">
         <div>

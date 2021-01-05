@@ -22,7 +22,8 @@ const HOST_URL = "https://brianyates.dev";
 const ogImage = `${HOST_URL}/og-image.png`;
 
 const title = "Brian Yates Web Development Portfolio";
-const description = "My name is Brian Yates - I am a software engineer who specializes in JavaScript, Node and React. Check out my website to learn more about me and what I've been working on!";
+const description =
+  "My name is Brian Yates - I am a software engineer who specializes in JavaScript, Node and React. Check out my website to learn more about me and what I've been working on!";
 
 const theme = createMuiTheme({
   palette: {
@@ -80,9 +81,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Layout = ({
-  children,
-}) => {
+const Layout = ({ children }) => {
   const classes = useStyles();
   return (
     <>

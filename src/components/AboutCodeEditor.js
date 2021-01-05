@@ -43,8 +43,8 @@ const useStyles = makeStyles(theme => ({
     display: "block",
     marginLeft: 1,
     marginTop: 2,
-    [theme.breakpoints.down('xs')]: {
-      marginTop: 0
+    [theme.breakpoints.down("xs")]: {
+      marginTop: 0,
     },
     "&.finished": {
       animation: `$blink 1s ${theme.transitions.easing.easeInOut} 0s infinite`,
@@ -574,11 +574,14 @@ const AboutCodeEditor = () => {
   };
   useIntersectionObserver(
     threshold,
-    React.useCallback(([entry]) => {
-      if (!isIntersecting) {
-        setIsIntersecting(Boolean(entry.intersectionRatio > threshold));
-      }
-    }, [isIntersecting]),
+    React.useCallback(
+      ([entry]) => {
+        if (!isIntersecting) {
+          setIsIntersecting(Boolean(entry.intersectionRatio > threshold));
+        }
+      },
+      [isIntersecting]
+    ),
     codeElement
   );
   React.useEffect(() => {
@@ -622,7 +625,9 @@ const AboutCodeEditor = () => {
                 {idx1 === activeLine && (
                   <span
                     className={`${classes.cursor}${
-                      !isIntersecting || idx1 === lines.length - 1 ? " finished" : ""
+                      !isIntersecting || idx1 === lines.length - 1
+                        ? " finished"
+                        : ""
                     }`}
                   />
                 )}

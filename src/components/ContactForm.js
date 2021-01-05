@@ -14,48 +14,48 @@ import { teal } from "@material-ui/core/colors";
 const useStyles = makeStyles(theme => ({
   submitBtn: {
     width: 150,
-    [theme.breakpoints.down('sm')]: {
+    [theme.breakpoints.down("sm")]: {
       width: "100%",
     },
   },
   dialog: {
-    '& .MuiPaper-root.MuiDialog-paper': {
+    "& .MuiPaper-root.MuiDialog-paper": {
       background: "#222222",
-      color: theme.palette.common.white
-    }
+      color: theme.palette.common.white,
+    },
   },
   dialogRoot: {
-    textAlign: 'center',
+    textAlign: "center",
     padding: theme.spacing(2),
     "& .icon": {
       height: 100,
       width: 100,
       borderRadius: 9999,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
       background: `linear-gradient(45deg, ${teal[200]}, ${teal[100]})`,
       color: theme.palette.common.black,
-      margin: `${theme.spacing(1)}px auto`
+      margin: `${theme.spacing(1)}px auto`,
     },
     "& .close-btn": {
       borderRadius: theme.shape.borderRadius,
       color: theme.palette.common.white,
-      fontSize: '1rem',
+      fontSize: "1rem",
       padding: `${theme.spacing(1)}px`,
       width: "100%",
       backgroundColor: `rgba(255, 255, 255, 0)`,
       border: `1px solid ${theme.palette.common.white}`,
       cursor: "pointer",
       "&:hover, &:focus": {
-        backgroundColor: `rgba(255, 255, 255, .1)`
-      }
+        backgroundColor: `rgba(255, 255, 255, .1)`,
+      },
     },
     "& .message": {
       maxWidth: 320,
-      margin: `0 auto ${theme.spacing(2)}px auto`
-    }
-  }
+      margin: `0 auto ${theme.spacing(2)}px auto`,
+    },
+  },
 }));
 
 const SuccessDialog = ({ open, setOpen }) => {
@@ -71,13 +71,17 @@ const SuccessDialog = ({ open, setOpen }) => {
             <path d="M435.848 83.466L172.804 346.51l-96.652-96.652c-4.686-4.686-12.284-4.686-16.971 0l-28.284 28.284c-4.686 4.686-4.686 12.284 0 16.971l133.421 133.421c4.686 4.686 12.284 4.686 16.971 0l299.813-299.813c4.686-4.686 4.686-12.284 0-16.971l-28.284-28.284c-4.686-4.686-12.284-4.686-16.97 0z" />
           </svg>
         </div>
-        <Typography variant="h4" gutterBottom><strong>Success!</strong></Typography>
+        <Typography variant="h4" gutterBottom>
+          <strong>Success!</strong>
+        </Typography>
         <Typography className="message">
           I have received your message and will get back to you as soon as
           possible.
         </Typography>
         <div>
-          <button className="close-btn" onClick={handleClose}>CLOSE</button>
+          <button className="close-btn" onClick={handleClose}>
+            CLOSE
+          </button>
         </div>
       </div>
     </Dialog>
@@ -122,8 +126,11 @@ const ContactForm = () => {
         }}
         onSubmit={(values, { setStatus, setSubmitting, resetForm }) => {
           setStatus(null);
-          const contactUs = async (values) => {
-            return axios.post("https://us-central1-brianyatesportfolio.cloudfunctions.net/contactUs", values);
+          const contactUs = async values => {
+            return axios.post(
+              "https://us-central1-brianyatesportfolio.cloudfunctions.net/contactUs",
+              values
+            );
           };
           window.grecaptcha.ready(function () {
             window.grecaptcha
@@ -171,7 +178,7 @@ const ContactForm = () => {
               )}
               <div>
                 <Button
-                className={classes.submitBtn}
+                  className={classes.submitBtn}
                   type="submit"
                   color="primary"
                   variant="contained"

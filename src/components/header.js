@@ -8,14 +8,14 @@ import {
   indigo,
   deepPurple,
   cyan,
-  pink
+  pink,
 } from "@material-ui/core/colors";
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from "@material-ui/core/styles";
 import Navbar from "./Navbar";
 
 const calc = (x, y) => [
   -(y - window.innerHeight / 2) / 40,
-  (x - window.innerWidth / 2) / 40
+  (x - window.innerWidth / 2) / 40,
 ];
 const trans = (x, y) => `perspective(600px) rotateX(${x}deg) rotateY(${y}deg)`;
 
@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    fontFamily: theme.typography.fontFamily
+    fontFamily: theme.typography.fontFamily,
   },
   headerText: {
     textAlign: "center",
@@ -43,17 +43,17 @@ const useStyles = makeStyles(theme => ({
     "& h1": {
       fontSize: "12vw",
       lineHeight: 1,
-      [theme.breakpoints.down('sm')]: {
-        fontSize: "16vw"
-      }
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "16vw",
+      },
     },
     "& p": {
       fontSize: "4vw",
       letterSpacing: ".95vw",
-      [theme.breakpoints.down('sm')]: {
-        fontSize: "5.8vw"
-      }
-    }
+      [theme.breakpoints.down("sm")]: {
+        fontSize: "5.8vw",
+      },
+    },
   },
   divider: {
     display: "block",
@@ -66,13 +66,13 @@ const useStyles = makeStyles(theme => ({
   },
   "@keyframes colors": {
     "0%": {
-        backgroundPositionX: "0%"
+      backgroundPositionX: "0%",
     },
     "100%": {
-        backgroundPositionX: "100%"
-    }
-  }
-}))
+      backgroundPositionX: "100%",
+    },
+  },
+}));
 
 const Header = () => {
   const classes = useStyles();
@@ -84,12 +84,17 @@ const Header = () => {
     set({ xy: calc(e.clientX, e.clientY) });
   };
   const handleMouseLeave = () => {
-    set({ xy: [0, 0]})
-  }
+    set({ xy: [0, 0] });
+  };
 
   return (
     // eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions
-    <header className={classes.root} onMouseMove={updateMousePosition} role="banner" onMouseLeave={handleMouseLeave}>
+    <header
+      className={classes.root}
+      onMouseMove={updateMousePosition}
+      role="banner"
+      onMouseLeave={handleMouseLeave}
+    >
       <Navbar />
       <animated.div
         className={classes.headerText}
