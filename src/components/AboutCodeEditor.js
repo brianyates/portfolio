@@ -409,7 +409,7 @@ const lines = [
     indent: 4,
     content: [
       {
-        text: "},",
+        text: "}",
         color: codeColors.operator,
       },
     ],
