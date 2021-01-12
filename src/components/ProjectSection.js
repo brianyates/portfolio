@@ -341,7 +341,7 @@ const ProjectSection = () => {
   return (
     <div className={classes.root}>
       <div className={classes.contentContainer}>
-        <Hidden smDown>
+        <Hidden smDown implementation="css">
           <Grid container spacing={4}>
             <Grid item xs={12} md={5} className={classes.projectGridItem}>
               <div className={classes.infoContainer}>
