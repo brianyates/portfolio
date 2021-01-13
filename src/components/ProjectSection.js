@@ -14,6 +14,7 @@ import FirebaseIcon from "./icons/FirebaseIcon";
 import RubyIcon from "./icons/RubyIcon";
 import JQueryIcon from "./icons/JQueryIcon";
 import PostgresIcon from "./icons/PostgresIcon";
+import NetlifyIcon from "./icons/NetlifyIcon";
 import SectionHeader from "./SectionHeader";
 import TechStackContainer from "./TechStackContainer";
 import ArrowButton from "./ArrowButton";
@@ -203,6 +204,27 @@ const ProjectSection = () => {
           }
         }
       }
+      philipsAcademy1: file(relativePath: { eq: "philips_academy_1.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 1000) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      philipsAcademyMobile: file(relativePath: { eq: "philips_academy_mobile.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 500) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      philipsAcademy2: file(relativePath: { eq: "philips_academy_2.png" }) {
+        childImageSharp {
+          fluid(maxWidth: 800) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
     }
   `);
   const mapImages = imageArray => {
@@ -273,8 +295,8 @@ const ProjectSection = () => {
           Icon: ReactIcon,
         },
         {
-          label: "Gatsby.js",
-          Icon: GatsbyIcon,
+          label: "Node.js",
+          Icon: NodeIcon,
         },
         {
           label: "Firebase",
@@ -304,6 +326,28 @@ const ProjectSection = () => {
         },
       ],
       images: [data.quipquotes1, data.quipquotesMobile, data.quipquotes2],
+    },
+    {
+      name: "PHILIPS ACADEMY",
+      id: "philips-academy",
+      description:
+        "Philips Academy is a private non-profit school for students in middle school and high school with learning disabilities. Its mission is to provide students with the academic, occupational and social skills needed to be self-reliant, confident and contributing members of their communities.",
+      href: "https://philipsacademync.org",
+      stack: [
+        {
+          label: "React.js",
+          Icon: ReactIcon,
+        },
+        {
+          label: "Gatsby.js",
+          Icon: GatsbyIcon,
+        },
+        {
+          label: "Netlify",
+          Icon: NetlifyIcon,
+        },
+      ],
+      images: [data.philipsAcademy1, data.philipsAcademyMobile, data.philipsAcademy2],
     },
     {
       name: "WAVEFOUNDRY",

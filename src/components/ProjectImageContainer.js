@@ -1,7 +1,7 @@
 import React from "react";
 import useIntersectionObserver from "./useIntersectionObserver";
 
-const threshold = 0.65;
+const threshold = 0.68;
 const ProjectImageContainer = ({ id, handleIntersect, children }) => {
   const ref = React.useRef(null);
   useIntersectionObserver(
