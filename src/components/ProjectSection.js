@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
   infoContainer: {
     position: "sticky",
     paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
+    paddingBottom: theme.spacing(1),
     zIndex: 50,
     left: 0,
     top: 0,
