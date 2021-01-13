@@ -291,12 +291,12 @@ const ProjectSection = () => {
       href: "https://shopdzignstudio.com",
       stack: [
         {
-          label: "React.js",
-          Icon: ReactIcon,
-        },
-        {
           label: "Node.js",
           Icon: NodeIcon,
+        },
+        {
+          label: "React.js",
+          Icon: ReactIcon,
         },
         {
           label: "Firebase",
