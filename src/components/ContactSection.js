@@ -102,7 +102,7 @@ const ContactSection = () => {
             away.
           </Typography>
           <Typography variant="h6" className={classes.more}>
-            MORE WAYS TO REACH ME
+            WAYS TO REACH ME
           </Typography>
           {contactlinks.map(({ label, href, Icon }) => {
             return (
