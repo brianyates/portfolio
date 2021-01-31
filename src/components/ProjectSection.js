@@ -265,7 +265,7 @@ const ProjectSection = () => {
       name: "TILL",
       id: "till",
       description:
-        "Till is a food delivery service which allows customers to order locally-sourced produce, meats and pantry items from local farms, delivered right to their doorstep. Customers can search for food from over 20 artisan farmers and learn about the origins of each farm. Till currently has a userbase of over 650 customers which grows every week.",
+        "Till is a food delivery service which allows customers to order locally-sourced produce, meats and pantry items from local farms, delivered right to their doorstep. Customers can search for food from over 20 artisan farmers and learn about the origins of each farm. Till currently has a userbase of over 700 customers which grows every week.",
       href: "https://usetill.com",
       stack: [
         {

@@ -8,11 +8,11 @@ const useStyles = makeStyles(theme => ({
     borderRadius: theme.shape.borderRadius,
     background: blueGrey[800],
     padding: theme.spacing(1),
-    display: "inline-block",
+    width: 240,
     margin: `${theme.spacing(2)}px 0`,
     border: `1px solid ${blueGrey[900]}`,
     [theme.breakpoints.down("sm")]: {
-      display: "block",
+      width: "100%",
     },
     "& .links-container": {
       display: "flex",

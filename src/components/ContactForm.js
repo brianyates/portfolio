@@ -13,7 +13,7 @@ import { teal } from "@material-ui/core/colors";
 
 const useStyles = makeStyles(theme => ({
   submitBtn: {
-    width: 150,
+    width: 240,
     [theme.breakpoints.down("sm")]: {
       width: "100%",
     },
