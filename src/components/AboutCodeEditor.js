@@ -375,7 +375,7 @@ const lines = [
         color: codeColors.variable,
       },
       {
-        text: " 2",
+        text: " 2.4",
         color: codeColors.number,
       },
       {
@@ -397,6 +397,79 @@ const lines = [
       },
       {
         text: `"Software Engineer"`,
+        color: codeColors.string,
+      },
+      {
+        text: "]",
+        color: codeColors.operator,
+      },
+    ],
+  },
+  {
+    indent: 4,
+    content: [
+      {
+        text: "}",
+        color: codeColors.operator,
+      },
+    ],
+  },
+  {
+    indent: 4,
+    content: [
+      {
+        text: "{",
+        color: codeColors.operator,
+      },
+    ],
+  },
+  {
+    indent: 6,
+    content: [
+      {
+        text: "company:",
+        color: codeColors.variable,
+      },
+      {
+        text: ` "Zendesk"`,
+        color: codeColors.string,
+      },
+      {
+        text: ",",
+        color: codeColors.operator,
+      },
+    ],
+  },
+  {
+    indent: 6,
+    content: [
+      {
+        text: "years:",
+        color: codeColors.variable,
+      },
+      {
+        text: " 1",
+        color: codeColors.number,
+      },
+      {
+        text: ",",
+        color: codeColors.operator,
+      },
+    ],
+  },
+  {
+    indent: 6,
+    content: [
+      {
+        text: "jobs:",
+        color: codeColors.variable,
+      },
+      {
+        text: " [",
+        color: codeColors.operator,
+      },
+      {
+        text: `"Senior Software Engineer"`,
         color: codeColors.string,
       },
       {

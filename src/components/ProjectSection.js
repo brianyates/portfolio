@@ -11,9 +11,7 @@ import ReactIcon from "./icons/ReactIcon";
 import GoogleCloudIcon from "./icons/GoogleCloudIcon";
 import GatsbyIcon from "./icons/GatsbyIcon";
 import FirebaseIcon from "./icons/FirebaseIcon";
-import RubyIcon from "./icons/RubyIcon";
-import JQueryIcon from "./icons/JQueryIcon";
-import PostgresIcon from "./icons/PostgresIcon";
+import NextIcon from "./icons/NextIcon";
 import NetlifyIcon from "./icons/NetlifyIcon";
 import SectionHeader from "./SectionHeader";
 import TechStackContainer from "./TechStackContainer";
@@ -211,7 +209,9 @@ const ProjectSection = () => {
           }
         }
       }
-      philipsAcademyMobile: file(relativePath: { eq: "philips_academy_mobile.png" }) {
+      philipsAcademyMobile: file(
+        relativePath: { eq: "philips_academy_mobile.png" }
+      ) {
         childImageSharp {
           fluid(maxWidth: 500) {
             ...GatsbyImageSharpFluid
@@ -262,6 +262,28 @@ const ProjectSection = () => {
   };
   const projects = [
     {
+      name: "QUIPQUOTES",
+      id: "quipquotes",
+      description:
+        "QuipQuotes is a software service which provides heavy construction equipment buyers the ability to easily request quotes from equipment dealers in their area. Equipment dealers can also track their requests and quickly provide quotes and additional feedback.",
+      href: "https://quipquotes.com",
+      stack: [
+        {
+          label: "Node.js + Koa",
+          Icon: NodeIcon,
+        },
+        {
+          label: "Next.js",
+          Icon: NextIcon,
+        },
+        {
+          label: "Google Cloud",
+          Icon: GoogleCloudIcon,
+        },
+      ],
+      images: [data.quipquotes1, data.quipquotesMobile, data.quipquotes2],
+    },
+    {
       name: "TILL",
       id: "till",
       description:
@@ -269,7 +291,7 @@ const ProjectSection = () => {
       href: "https://usetill.com",
       stack: [
         {
-          label: "Node.js",
+          label: "Node.js + Express",
           Icon: NodeIcon,
         },
         {
@@ -306,28 +328,6 @@ const ProjectSection = () => {
       images: [data.dzignStudio1, data.dzignStudioMobile, data.dzignStudio2],
     },
     {
-      name: "QUIPQUOTES",
-      id: "quipquotes",
-      description:
-        "QuipQuotes is a software service which provides heavy construction equipment buyers the ability to easily request quotes from equipment dealers in their area. Equipment dealers can also track their requests and quickly provide quotes and additional feedback.",
-      href: "https://quipquotes.com",
-      stack: [
-        {
-          label: "Ruby on Rails",
-          Icon: RubyIcon,
-        },
-        {
-          label: "jQuery",
-          Icon: JQueryIcon,
-        },
-        {
-          label: "PostgreSQL",
-          Icon: PostgresIcon,
-        },
-      ],
-      images: [data.quipquotes1, data.quipquotesMobile, data.quipquotes2],
-    },
-    {
       name: "PHILIPS ACADEMY",
       id: "philips-academy",
       description:
@@ -347,7 +347,11 @@ const ProjectSection = () => {
           Icon: NetlifyIcon,
         },
       ],
-      images: [data.philipsAcademy1, data.philipsAcademyMobile, data.philipsAcademy2],
+      images: [
+        data.philipsAcademy1,
+        data.philipsAcademyMobile,
+        data.philipsAcademy2,
+      ],
     },
     {
       name: "WAVEFOUNDRY",
