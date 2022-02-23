@@ -17,11 +17,11 @@ module.exports = {
         name: `Brian Yates Portfolio`,
         short_name: `Brian Yates Portfolio`,
         start_url: `/`,
-        background_color: `#663399`,
-        theme_color: `#663399`,
+        background_color: `#000000`,
+        theme_color: `#000000`,
         display: `minimal-ui`,
         icon: `src/images/logo-icon.png`, // This path is relative to the root of the site.
       },
     },
   ],
-}
+};
